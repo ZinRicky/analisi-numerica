@@ -1,0 +1,159 @@
+\chapter{Polinomi ortogonali}
+
+	\begin{definizione}
+		Si dice \emph{spazio di Hilbert} uno spazio euclideo completo, separabile e di dimensione infinita.
+	\end{definizione}
+
+	\begin{esempio}
+		Lo spazio \((L^2 ((\, a, b \,)), \norm{\cdot}_2)\) delle funzioni reali misurabili di modulo quadrato integrabile su un intervallo anche illimitato \((\, a, b \,)\) con la norma definita a partire dal prodotto scalare descritto nella \eqref{eq:prod-scal-l2r} è uno spazio di Hilbert.
+	\end{esempio}
+
+	\begin{esempio}
+		Data una funzione misurabile positiva \(w \colon (\, a, b \,) \to \R\), lo spazio \((L^2_w ((\, a, b \,)), \norm{\cdot}_{2, w})\) delle funzioni misurabili \(f\) tali che
+		\begin{equation*}
+			\int_a^b \abs{f (x)}^2 w (x) \dd{x} < + \infty
+		\end{equation*}
+		è uno spazio di Hilbert dotato del prodotto scalare
+		\begin{equation}\label{eq:prod-scal-l2w}
+			(f, g)_{2, w} \coloneqq \int_a^b f (x) g (x) w (x) \dd{x}
+		\end{equation}
+	\end{esempio}
+
+	\begin{definizione}
+		Si dice \emph{funzione peso} una funzione \(w \colon (\, a, b \,) \to \R\) non negativa tale che per ogni \(n \in \N\)
+		\begin{subequations}
+			\begin{equation}
+				\int_a^b \abs{x}^n w (x) \dd{x} < + \infty
+			\end{equation}
+			e che per ogni \(g\) continua e non negativa si abbia
+			\begin{equation}
+				\int_a^b g (x) w (x) \dd{x} = 0 \implies g \equiv 0
+			\end{equation}
+		\end{subequations}
+		
+	\end{definizione}
+
+	\begin{esempio}[Funzioni peso classiche]
+		Riportiamo alcuni esempi di funzioni peso comuni.
+			\begin{itemize}
+				\item Peso di Legendre: \(w (x) = 1\) per \(x \in [\, -1, 1\,]\).
+				\item Peso di Chebyshev: \(w (x) = 1 / \sqrt{1 - x^2}\) per \(x \in (\, -1, 1 \,)\).
+				\item Peso di Gegenbauer: \(w (x) = \qty(1 - x^2)^{\gamma - 1 / 2}\) per \(x \in (\, -1, 1 \,)\), con \(\gamma > (- 1 / 2)\).
+				\item Peso di Jacobi: \(w (x) = (1 - x)^\alpha (1 + x)^\beta\) per \(x \in (\, -1, 1 \,)\), con \(\alpha, \beta > - 1\).
+				\item Peso di Laguerre: \(w (x) = \ee^{-x}\) per \(x \in (\, 0, + \infty \,)\).
+				\item Peso di Hermite: \(w (x) = \ee^{- x^2}\) per \(x \in \R\).
+			\end{itemize}
+	\end{esempio}
+
+	\begin{teorema}
+		Per ogni \(n \in \N\) si ha \(\P_n \subseteq L_w^2 ((\, a, b \,))\).
+	\end{teorema}
+
+	\begin{proof}
+		Scelto un qualunque polinomio \(p_n (x) = \sum_{k = 0}^n a_k x^k\) di grado \(n\), per la disuguaglianza triangolare e per il fatto che
+		\begin{equation*}
+			\norm{x^k}_{2, w}^2 = \int_a^b \abs{x}^{2 k} w (x) \dd{x} < + \infty
+		\end{equation*}
+		si ottiene
+		\begin{equation*}
+			\norm{p_n}_{2, w} = \norm{\sum_{k = 0}^n a_k x^k}_{2, w} \le \sum_{k = 0}^n \abs{a_k} \, \norm{x^k}_{2, w} < + \infty
+		\end{equation*}
+		da cui si conclude che \(p_n \in L_w^2 ((\, a, b \,))\).
+	\end{proof}
+
+	\begin{osservazione}
+		Se \(a\) e \(b\) sono finiti, per il teorema di Weierstrass
+		\begin{equation*}
+			\norm{x^n}_\infty = \max_{x \in [\, a, b \,]} \abs{x}^n < + \infty
+		\end{equation*}
+		e quindi, poiché \(w (x) \ge 0\) per ogni \(x \in (\, a, b \,)\),
+		\begin{equation*}
+			\int_a^b \abs{x}^n w (x) \dd{x} \le \norm{x^n}_\infty \int_a^b w (x) \dd{x}
+		\end{equation*}
+		In base a ciò, si conclude che per ogni \(n \in \N\)
+		\begin{equation}
+			\int_a^b w (x) \dd{x} < + \infty \implies \int_a^b \abs{x}^n w (x) \dd{x} < + \infty
+		\end{equation}
+	\end{osservazione}
+
+	Fissati \(f \in L_w^2 ((\, a, b \,))\) e \(n \in \N\), vogliamo risolvere il \emph{problema dei minimi quadrati} nel continuo, ovvero determinare il polinomio \(p_n^* \in \P_n\), se esiste, che minimizzi al variare di \(p_n \in \P_n\) la quantità
+	\begin{equation*}
+		\norm{f - p_n}_{2, w} = \int_a^b \abs{f (x) - p_n (x)}^2 w (x) \dd{x}
+	\end{equation*}
+	
+	Si può dimostrare che, nel caso in cui \(a, b\) siano finiti e \(f \in \cont ([\, a, b \,])\), si ha \(\norm{f - p_n^*}_{2, w} \to 0\) per \(n \to + \infty\).
+	
+	Dal momento che \(L_w^2 ([\, a, b \,])\) è uno spazio euclideo, individuata una base \(\varphi_0, \dots, \varphi_n\) di \(\P_n\), abbiamo già visto che la soluzione del problema di trovare
+	\begin{equation*}
+		\norm{f - f^*}_{2, w} = \; \min_{g \in \Braket{\varphi_0, \dots, \varphi_n}} \norm{f - g}_{2, w}
+	\end{equation*}
+	è data da \(f^* = \sum_{j = 0}^n \gamma_j^* \varphi_j\), ove i \(\gamma_j^*\) verificano le equazioni normali definite nella \eqref{eq:eq-normali}. Abbiamo anche visto che \(f^*\) è tale che \((f, \varphi_j)_{2, w} = (f^*, \varphi_j)_{2, w}\) per ogni \(j \in \Set{0, \dots, n}\).
+	
+	\begin{definizione}
+		Una sequenza di polinomi \(\varphi_0, \dots, \varphi_n\) triangolare, ovvero tale che \(\deg (\varphi_k) = k\) per ogni \(k \in \Set{0, \dots, n}\), si dice \emph{ortogonale} rispetto alla funzione peso \(w\) se verifica per ogni \(i, j \in \Set{0, \dots, n}\)
+		\begin{equation}
+			(\varphi_i, \varphi_j)_{2, w} = c_i \delta_{i, j}
+		\end{equation}
+		ove \(\delta_{i, j}\) è il delta di Kronecker e \(c_i > 0\) per ogni \(i \in \Set{0, \dots, n}\).
+	\end{definizione}
+
+	\begin{osservazione}
+		Attraverso il procedimento di Gram-Schmidt, si può dimostrare che esiste una tale famiglia di polinomi e costruirla direttamente. Si può osservare, inoltre, che ogni polinomio di grado \(n\) si può scrivere univocamente come combinazione lineare di \(\varphi_0\, dots, \varphi_n\). In base a queste osservazioni, per ogni \(p_m = \sum_{j = 0}^m a_j x^j\) con \(m < n\) dalla bilinearità del prodotto scalare segue che
+		\begin{equation}
+			\qty(\varphi_{m + 1}, p_m)_{2, w} = \qty(\varphi_{m + 1}, \sum_{j = 0}^m a_j x^j)_{\! 2, w} \hspace{-.7em} = \sum_{j = 0}^m a_j \qty(\varphi_{m + 1}, \varphi_j)_{2, w} = 0
+		\end{equation}
+	\end{osservazione}
+	
+	\begin{teorema}[Christoffel]
+		Se una famiglia triangolare di polinomi \(\varphi_0, \dots, \varphi_n\) è ortogonale in \((\, a, b \,)\) rispetto a una funzione peso \(w\), allora il polinomio \(\varphi_n\) ha esattamente \(n\) zeri, i quali hanno tutti molteplicità \(1\) ed appartengono all'intervallo \((\, a, b \,)\).
+	\end{teorema}
+
+	\begin{proof}
+		Chiamati \(x_1, \dots, x_m\) con \(m \le n\) gli zeri di \(\varphi_n\) interni ad \((\, a, b \,)\) e chiamate \(\alpha_1, \dots, \alpha_m\) le molteplicità rispettive, esiste \(a_n\) tale che
+		\begin{equation*}
+			\varphi_n (x) = a_n \qty[\prod_{k = 1}^m \qty(x - x_k)^{\alpha_k}] r (x)
+		\end{equation*}
+		ove si suppone che \(\prod_{k = 1}^m (x - x_k)^{\alpha_k} \equiv 1\) se \(\varphi_n\) non ammette zeri interni ad \((\, a, b \,)\). Per costruzione, \(r\) non ammette zeri in \((\, a, b \,)\) e, dato che è una funzione continua, è di segno costante.
+		
+		Consideriamo ora il polinomio di grado al piú \(n\)
+		\begin{equation*}
+			q (x) = \prod_{k = 1}^m \qty(x - x_k)^{\varmod_2 \alpha_k}
+		\end{equation*}
+		Si osserva che, se uno zero di \(\varphi_n\) interno ad \((\, a, b \,)\) ha molteplicità dispari ma maggiore di \(1\), allora \(\deg q < n\); se uno zero di \(\varphi_n\) interno ad \((\, a, b \,)\) ha molteplicità pari, allora \(\deg q < n\); se uno zero di \(\varphi_n\) è esterno ad \((\, a, b \,)\), allora \(\deg q < n\), perché \(r\) sarebbe di grado almeno \(1\). Ricordiamo, poi, che \(\alpha_k + \varmod_2 \alpha_k\) è pari per ogni \(\alpha_k \in \N\).
+		
+		Per assurdo sia \(q \in \P_{n - 1}\). Per come sono definiti \(\varphi_n\) e \(q\), si avrebbe
+		\begin{equation*}
+			\varphi_n (x) \, q(x) = a_n \qty[\prod_{k = 1}^m \qty(x - x_k)^{\alpha_k + \varmod_2 \alpha_k}] r (x)
+		\end{equation*}
+		il quale avrebbe segno costante e grado almeno \(n\), non coincidendo col polinomio. Dato che, però,
+		\begin{multline*}
+			0 = \qty(\varphi_n, q)_{2, w} = \int_a^b \varphi_n (x) q (x) w (x) \dd{x} \\
+			= \int_a^b a_n \qty[\prod_{k = 1}^m \qty(x - x_k)^{\alpha_k + \varmod_2 \alpha_k}] r (x) w (x) \dd{x} \ne 0
+		\end{multline*}
+		si è trovato un assurdo. In virtú di ciò, si può concludere.
+	\end{proof}
+
+	Non è possibile che \(\varphi_n\) abbia come zeri \(a\) oppure \(b\): nella dimostrazione, infatti, basterebbe mettere in risalto che \(r (x)\) si annulla in \(a\) oppure \(b\), rimanendo comunque di segno costante in \((\, a, b \,)\).
+	
+	\begin{definizione}
+		Un polinomio \(p (x) = \sum_{j = 0}^n a_j x^j\) di grado \(n\) si dice \emph{monico} se \(a_n = 1\).
+	\end{definizione}
+
+	\begin{teorema}[Ricorsione a tre termini]
+		Se una famiglia triangolare \(\varphi_0, \dots, \varphi_n\) di polinomi monici in \((\, a, b \,)\) è ortogonale rispetto a una funzione peso \(w\), allora, supposti \(\varphi_{-1} (x) = 0\) e \(\varphi_0 (x) = 1\), vale per ogni \(n \in \N^*\)
+		\begin{equation}\label{eq:ricorsione-tre-termini}
+			\varphi_{n + 1} (x) = (x - \beta_n) \varphi_n (x) - \gamma_n \varphi_{n - 1} (x)
+		\end{equation} 
+		con
+		\begin{align}
+			\beta_n &= \frac{(x \varphi_n, \varphi_n)_{2, w}}{(\varphi_n, \varphi_n)_{2, w}} &
+			\gamma_n &= \frac{(x \varphi_{n - 1}, \varphi_n)_{2, w}}{(\varphi_{n - 1}, \varphi_{n - 1})_{2, w}}
+		\end{align}
+	\end{teorema}
+
+	Osserviamo che, scelti i polinomi ortogonali \(\varphi_0\) e \(\varphi_1\), la procedura descritta tramite la \eqref{eq:ricorsione-tre-termini} determina la famiglia triangolare di polinomi ortogonali di grado superiore, dopo aver calcolato \(\beta_k\) e \(\gamma_k\). Se, poi, \(\varphi_n\) verifica \((\varphi_n, \varphi_k)_{2, w} = 0\) per ogni \(k \in \Set{0, \dots, n - 1}\), allora tale condizione è soddisfatta anche da \(\tilde{\varphi}_n = \tau \varphi_n\).
+	
+	Qualora sia richiesta una famiglia di polinomi \(\hat{\varphi}_0, \dots, \hat{\varphi}_n\) ortonormale, si può partire da una famiglia ortogonale di polinomi monici e ragionare come segue. Dal momento che, infatti, \(\gamma_0 = \int_a^b w (x) \dd{x}\), dalla \eqref{eq:ricorsione-tre-termini} segue che
+	\begin{equation*}
+		\norm{\varphi_{n + 1}}_{2, w}^2 = \prod_{i = 0}^n \gamma_i \implies \hat{\varphi}_{n + 1} = \frac{\varphi_{n + 1}}{\norm{\varphi_{n + 1}}_{2, w}}
+	\end{equation*}

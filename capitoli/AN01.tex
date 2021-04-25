@@ -1,0 +1,360 @@
+\chapter{Approssimazione in max-norma}
+
+\section{Polinomi di miglior approssimazione}
+
+	\noindent Dato \(n \in \N\), chiamiamo \(\P_n = \Braket{x^i : i \in \Set{0, \dots, n}}\). Da questa definizione si nota subito che \(\P_0 \subset \P_1 \subset \cdots\). Dato che le funzioni polinomiali sono continue, si ottiene
+	\begin{equation*}
+		\bigcup_{n \in \N} \P_n \subseteq \cont ([\, a, b \,])
+	\end{equation*}
+	per ogni intervallo chiuso e limitato \([\, a, b \,]\). In questa sezione tratteremo \(\cont ([\, a, b\,])\) come spazio normato dotato della \(\max\)-norma \(\norm{\cdot}_\infty\).
+	
+	\begin{definizione}\label{def:ins-denso}
+		Dato uno spazio topologico \(X\), un insieme \(S \subseteq X\) si dice \emph{denso} in \(X\) se per ogni \(x \in X\) esiste una successione \((s_n)_{n \in \N} \subseteq S\) tale che \(s_n \to x\) per \(n \to \infty\), ovvero se \(\overline{S} = X\). In particolare, se \((X, \norm{\cdot})\) è uno spazio normato, un insieme \(S \subseteq X\) si dice \emph{denso} in \(X\) se per ogni \(x \in X\) e per ogni \(\varepsilon > 0\) esiste \(s \in S\) tale che \(\norm{x - s} < \varepsilon\).
+	\end{definizione}
+
+	\begin{teorema}\label{th:errore-ins-denso}
+		Dati uno spazio normato \((X, \norm{\cdot})\) e una successione di insiemi \((S_n)_{n \in \N} \subseteq \Parti (X)\) con \(S_0 \ne \varnothing\) e \(S_i \subset S_{i + 1}\) per ogni \(i \in \N\), si definisca
+		\begin{equation}\label{eq:errore-approx}
+			E_n (f) \coloneqq \inf_{\mathclap{p_n \in S_n}} \norm{p_n - f}
+		\end{equation}
+		per ogni \(f \in X\). Per qualsiasi \(f \in X\) si verifica \(\lim_{n \to \infty} E_n (f) = 0\) se e solo se \(\bigcup_{n \in \N} S_n\) è denso in \(X\).
+	\end{teorema}
+
+	\begin{proof}
+		Mostriamo entrambe le implicazioni.
+		\begin{description}
+			\item[(\(\Rightarrow\))] Siano fissati \(f \in X\) e \(\varepsilon > 0\). Per ipotesi esiste \(n \in \N\) tale che, se \(E_n (f) < \varepsilon\), allora esiste \(p_n \in S_n\) tale che \(\norm{p_n - f} \le \varepsilon\) -- questo è giustificato dalle proprietà dell'estremo inferiore. Da ciò segue che \(\bigcup_{n \in \N} S_n\) è denso in \(X\) per definizione.
+			\item[(\(\Leftarrow\))] Fissato \(f \in X\), la successione \(\qty(E_n (f))_{n \in \N}\) è monotona decrescente non negativa, quindi ammette limite; per ogni \(\varepsilon > 0\), quindi, esiste \(p \in \bigcup_{n \in \N} S_n\) tale che \(\norm{p - f} \le \varepsilon\). Scelto \(\bar{n}\) tale che \(p \in S_{\bar{n}}\), si ha \(E_n (f) \le \varepsilon\) per ogni \(n \ge \bar{n}\): per questo motivo \(\lim_{n \to \infty} E_n (f) \le \varepsilon\) e, data l'arbitrarietà di \(\varepsilon\), si conclude che \(\lim_{n \to \infty} E_n (f) = 0\). \qedhere
+		\end{description}
+	\end{proof}
+
+	\begin{osservazione}
+		In base al Teorema~\ref{th:errore-ins-denso}, per ogni \(n \in \N^*\) l'insieme \(A_n = \Set{\norm{p_n - f} : p_n \in S_n} \subseteq \R\) è non vuoto e limitato inferiormente da \(0\), quindi ammette estremo inferiore: la definizione nella \eqref{eq:errore-approx}, dunque, è ben posta.
+	\end{osservazione}
+
+	Un caso particolare del Teorema~\ref{th:errore-ins-denso} si ha coi polinomi nei confronti delle funzioni continue su un compatto di \(\R\).
+
+	\begin{teorema}[di approssimazione di Weierstrass]\label{th:weierstrass-approx}
+		Ogni funzione di \(\cont ([\, a, b \,])\) con \(a, b \in \R\) e \(a \le b\) è limite uniforme di una successione di polinomi.
+	\end{teorema}
+
+	Vogliamo mostrare che, sotto certe condizioni, esiste un elemento di miglior approssimazione -- ovvero l'estremo inferiore è in realtà un minimo.
+	
+	\begin{lemma}\label{lem:distanza-funzione-continua}
+		Dati uno spazio normato \((X, \norm{\cdot})\) e un suo elemento \(f \in X\), se \(S \subseteq X\) è aperto, allora la funzione \(d (f, \cdot) = \norm{f - \cdot}\) è continua in \(S\).
+	\end{lemma}
+
+	\begin{proof}
+		Osserviamo innanzitutto che, scelti \(x, y \in X\) qualunque, si verifica che \(\abs{\norm{x} - \norm{y}} \le \norm{x - y}\): supponendo, infatti, \(\norm{x} \ge \norm{y}\), si ha
+		\begin{equation*}
+			\norm{x} = \norm{x - y + y} \le \norm{x - y} + \norm{y} \iff 0 \le \norm{x} - \norm{y} \le \norm{x - y}
+		\end{equation*}
+		e, scambiando i ruoli di \(x\) e \(y\), si è provata l'osservazione.
+		
+		Fissato \(\varepsilon > 0\), poniamo \(\delta = \varepsilon\) e scegliamo \(x, y \in S\) tali che \(\norm{x - y} \le \delta\): si ha
+		\begin{multline*}
+				\abs{d (f, x) - d (f, y)} = \abs{\norm{f - x} - \norm{f - y}} \\
+				\le \norm{(f - x) - (f - y)} = \norm{x - y} \le \delta = \varepsilon
+		\end{multline*}
+		il che permette di concludere.
+	\end{proof}
+
+	\begin{teorema}\label{th:miglior-approx-esiste}
+		Dato uno spazio normato \((X, \norm{\cdot})\), sia \(f \in X\). Se un sottospazio vettoriale \(S \le X\) è di dimensione finita, allora esiste \(s^* \in S\) tale che
+		\begin{equation*}
+			\norm{f - s^*} = \min_{s \in S} \norm{f - s}
+		\end{equation*}
+	\end{teorema}
+
+	\begin{proof}
+		Visto che \(0_X \in S\) per ogni \(S \le X\), si ha
+		\begin{equation*}
+			E_n (f) = \inf_{p \in S} \norm{f - p} \le \norm{f - 0_X} = \norm{f}
+		\end{equation*}
+		ovvero che \(E_n (f) \in [\, 0, \norm{f} \,]\). Poiché per il Lemma~\ref{lem:distanza-funzione-continua} la funzione \(d (f, \cdot)\) è continua su \(S\) e dato che \(B_{\norm{f}} (f) \cap S\) è un insieme compatto di \(S\), per il teorema di Weierstrass \(d (f, \cdot)\) ammette minimo in tale insieme, ovvero esiste \(s^* \in B_{\norm{f}} (f) \cap S \subseteq S\) tale che \(E_n (f) = \norm{f - s^*}\).
+	\end{proof}
+
+	Limitando questo risultato al caso delle funzioni continue su un compatto di \(\R\), è provata l'esistenza di un polinomio di miglior approssimazione.
+
+	\begin{corollario}
+		Per ogni \(k \in \N\) e per ogni \(f \in \cont ([\, a, b \,])\) con \(a, b \in \R\) e \(a \le b\) esiste un polinomio \(p_k^* \in \P_n\) di miglior approssimazione relativamente alla \(\max\)-norma \(\norm{\cdot}_{\infty}\).
+	\end{corollario}
+
+	 Quanto visto non dimostra l'unicità dell'elemento di miglior approssimazione. Nel caso delle funzioni continue su un compatto di \(\R\), tuttavia, vale il seguente risultato, che riportiamo senza dimostrazione.
+	 
+	 \begin{teorema}[di equioscillazione di Chebyshev]\label{th:chebyshev-equiosc}
+	 	Dato un intervallo chiuso e limitato \([\, a, b \,]\), per ogni \(f \in \cont ([\, a, b \,])\) e per ogni \(n \in \N\) esiste un unico \(p_n^* \in \P_n\) di miglior approssimazione. Esistono, inoltre, \(\sigma \in \Set{- 1, 1}\) e \(n + 2\) punti \(a \le x_0 < \cdots < x_{n + 1} \le b\) tali che per ogni \(j \in \Set{0, \dots, n + 1}\) si abbia
+	 	\begin{equation}
+	 		f (x_j) - p_n^* (x_j) = \sigma (-1)^j \norm{f - p_n^*}_{\infty}
+	 	\end{equation}
+	 \end{teorema}
+ 
+ 	\begin{figure}[tpb]
+ 		\centering
+ 		
+ 		\begin{tikzpicture}
+ 			\begin{axis}[scale = 1.3, samples = 400, axis lines = center, domain=0:10, ymin = -1.5, ymax = 1.5, xmax = 10.2, no marks, unit vector ratio = 1 2, legend entries = {\(\sin x\), \(p_5^* (x)\)}, legend pos = outer north east, xtick = {0, 2, ..., 10}]
+ 				\addplot {sin(deg(x))};
+ 				\addplot+[black, dashed, thin, forget plot] {sin(deg(x)) + 0.25945059765721};
+ 				\addplot+[black, dashed, thin, forget plot] {sin(deg(x)) - 0.25945059765721};
+ 				\addplot+[red] table {risorse/sin.dat};
+ 			\end{axis}
+ 		\end{tikzpicture}
+ 	
+ 		\caption{Confronto tra la funzione \(\sin x\) e il suo polinomio di miglior approssimazione di quinto grado nell'intervallo \([\, 0, 10 \,]\). Si notino le sette intersezioni di \(p_5^* (x)\) con \(\sin (x) \pm E_5 (\sin)\).}\label{fig:sin-migl-approx}
+ 	\end{figure}
+ 
+ 	Benché ne siano garantite l'esistenza e l'unicità, il polinomio di miglior approssimazione richiede un algoritmo abbastanza complicato, messo a punto da Remez, per essere trovato. Come è possibile notare nella Tabella~\ref{tab:remez-errore}, funzioni con regolarità diverse richiedono un grado diverso del polinomio di miglior interpolazione per essere approssimate con un certo errore assoluto in \(\max\)-norma. I teoremi di Jackson danno un'idea piú rigorosa dell'influenza della regolarità delle funzioni su tale errore.
+ 	
+ 	\begin{table}[tpb]
+ 		\centering
+ 		
+ 		\caption{Errore in \(\max\)-norma commesso dal polinomio di miglior interpolazione di alcune funzioni definite su \([\, -5, 5 \,]\), al variare del grado.}\label{tab:remez-errore}
+ 		
+ 		\begin{tabular}{SSSS}
+ 			\toprule
+ 			{\(n\)} & {\(\displaystyle E_n \qty(\frac{1}{1 + x^2})\)} & {\(E_n (\abs{x - 4})\)} & {\(E_n (\sin x)\)} \\
+ 			\midrule
+			\num{5}   & \num{2.171584e-01} & \num{1.612220e-01} & \num{1.078946e-01} \\
+			\num{10}  & \num{6.592293e-02} & \num{8.398083e-02} & \num{7.031736e-04} \\
+			\num{15}  & \num{2.977669e-02} & \num{5.677524e-02} & \num{2.306162e-08} \\
+			\num{20}  & \num{9.039331e-03} & \num{4.279954e-02} & \num{6.690029e-12} \\
+			\num{25}  & \num{4.082970e-03} & \num{3.431831e-02} & \num{1.355775e-15} \\
+			\num{30}  & \num{1.239470e-03} & \num{2.863059e-02} & \num{\le e-16} \\
+			\num{35}  & \num{5.598556e-04} & \num{2.455346e-02} & \num{\le e-16} \\
+			\num{40}  & \num{1.699558e-04} & \num{2.148833e-02} & \num{\le e-16} \\
+			\num{45}  & \num{7.676723e-05} & \num{1.910021e-02} & \num{\le e-16} \\
+			\num{50}  & \num{2.330428e-05} & \num{1.718714e-02} & \num{\le e-16} \\
+			\num{55}  & \num{1.052630e-05} & \num{1.562016e-02} & \num{\le e-16} \\
+			\num{60}  & \num{3.195476e-06} & \num{1.431308e-02} & \num{\le e-16} \\
+			\num{65}  & \num{1.443363e-06} & \num{1.320615e-02} & \num{\le e-16} \\
+			\num{70}  & \num{4.381627e-07} & \num{1.225662e-02} & \num{\le e-16} \\
+			\num{75}  & \num{1.979134e-07} & \num{1.143309e-02} & \num{\le e-16} \\
+			\num{80}  & \num{6.008073e-08} & \num{1.071203e-02} & \num{\le e-16} \\
+			\num{85}  & \num{2.713784e-08} & \num{1.007540e-02} & \num{\le e-16} \\
+			\num{90}  & \num{8.238251e-09} & \num{9.509177e-03} & \num{\le e-16} \\
+			\num{95}  & \num{3.721132e-09} & \num{9.002281e-03} & \num{\le e-16} \\
+			\num{100} & \num{1.129627e-09} & \num{8.545846e-03} & \num{\le e-16} \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+
+ 	\begin{definizione}
+ 		Di una funzione \(f \colon [\, a, b \,] \to \R\) si dice \emph{modulo di continuità} la quantità
+		\begin{equation}\label{eq:modulo-contin}
+ 			\omega (f, \delta) = \sup_{\mathclap{\substack{x, y \in [\, a, b \,] \\ \abs{x - y} \le \delta}}} \abs{f (x) - f (y)}
+ 		\end{equation}
+	\end{definizione}
+
+	La misura di continuità di una funzione è tanto maggiore quanto piú la funzione “oscilla”. Se la funzione in esame ha una qualche regolarità, la sua misura di continuità può essere stimata in modo semplice.
+	
+	\begin{esempio}[Misura di continuità per funzioni particolari]
+		Se una funzione \(f \colon [\, a, b \,] \to \R\) è lipschitziana con costante di Lipschitz \(L\), allora
+		\begin{equation*}
+			\omega (f, \delta) = \sup_{\mathclap{\substack{x, y \in [\, a, b \,] \\ \abs{x - y} \le \delta}}} \abs{f (x) - f (y)} \le \sup_{\mathclap{\substack{x, y \in [\, a, b \,] \\ \abs{x - y} \le \delta}}} L \abs{x - y} = L \delta
+		\end{equation*}
+		Se \(f \in \cont^1 ([\, a, b\,])\), allora è anche lipschitziana ed ha costante di Lipschitz pari a \(L = \max_{x \in [\, a, b \,]} \abs{f' (x)}\).
+		
+		Se \(f\) è h\"olderiana con costante di H\"older \(\alpha \in (\, 0, 1 \,)\), ovvero esiste \(L \ge 0\) tale che \(\abs{f (x) - f (y)} \le L \abs{x - y}^\alpha\) per ogni \(x, y \in [\, a, b \,]\), allora
+		\begin{equation*}
+			\omega (f, \delta) = \sup_{\mathclap{\substack{x, y \in [\, a, b \,] \\ \abs{x - y} \le \delta}}} \abs{f (x) - f (y)} \le \sup_{\mathclap{\substack{x, y \in [\, a, b \,] \\ \abs{x - y} \le \delta}}} L \abs{x - y}^\alpha = L \delta^\alpha
+		\end{equation*}
+	\end{esempio}
+
+	\begin{teorema}[Jackson]\label{th:jackson}
+		Per ogni \(n \in \N^*\) e per ogni \(f \in \cont ([\, a, b \,])\) esiste una costante \(M \ge 0\) indipendente da \(a, b, n\) tale che
+		\begin{equation}\label{eq:jackson}
+			E_n (f) = \min_{p \in \P_n} \norm{f - p}_\infty \le M \omega \qty(f, \frac{b - a}{n})
+		\end{equation}
+	\end{teorema}
+
+	\begin{corollario}\label{cor:jackson-lip-hold}
+		Se alle ipotesi del Teorema~\ref{th:jackson} si aggiunge che \(f\) è lipschitziana, allora esiste \(M^*\) indipendente da \(a, b, n\) tale che
+		\begin{equation}\label{eq:jackson-lip}
+			E_n (f) \le M^* \frac{b - a}{n}
+		\end{equation}
+		Se, invece, si suppone che \(f\) sia h\"olderiana con costante di H\"older \(\alpha\), allora esiste \(\bar{M}\) indipendente da \(a, b, n\) tale che
+		\begin{equation}\label{eq:jackson-hold}
+			E_n (f) \le \bar{M} \qty(\frac{b - a}{n})^\alpha
+		\end{equation}
+	\end{corollario}
+
+	\begin{teorema}[Jackson]\label{th:jackson-ck}
+		Per ogni funzione \(f \in \cont^k ([\, a, b \,])\) con \(k \in \N\) e per ogni \(n > k\) esiste \(M \ge 0\) tale che
+		\begin{equation}\label{eq:jackson-ck}
+			E_n (f) \le M^{k + 1} \frac{(b - a)^k}{\prod_{i = 0}^{k - 1} (n - i)} \, \omega \qty(f^{(k)}, \frac{b - a}{n - k})
+		\end{equation}
+	\end{teorema}
+
+	\begin{corollario}\label{cor:jackson-ck-hold}
+		Se alle ipotesi del Teorema~\ref{th:jackson-ck} si aggiunge che \(f\) è h\"olderiana con costante di H\"older \(\alpha\) e costante \(L\) e che \(k > 0\), allora esiste \(M \ge 0\) tale che
+		\begin{equation}\label{eq:jackson-ck-hold}
+			E_n (f) \le L M^{k + 1} \frac{(b - a)^k}{\prod_{i = 0}^{k - 1} (n - i)} \qty(\frac{b - a}{n - k})^\alpha
+		\end{equation}
+	\end{corollario}
+
+	\begin{teorema}[Jackson]\label{th:jackson-hold-d}
+		Se una funzione \(f \in \cont^k ([\, a, b \,])\) è \(\alpha\)-h\"olderiana di costante \(M\), allora esiste una costante \(d_k\) indipendente da \(f\) e da \(n \in \N^*\) tale che
+		\begin{equation}\label{eq:jackson-hold-d}
+			E_n (f) \le \frac{M d_k}{n^{k + \alpha}}
+		\end{equation}
+	\end{teorema}
+
+	Ricordiamo che una funzione complessa \(f \colon \varOmega \to \C\), con \(\varOmega\) regione del piano complesso, si dice \emph{analitica} in un punto \(z_0 \in \varOmega\) se esiste un intorno di \(z_0\) in \(\varOmega\) tale che per ogni \(z\) in tale intorno si abbia \(f (z) = \sum_{n = 0}^\infty a_n (z - z_0)^n\); tale funzione si dice \emph{analitica in \(\varOmega\)} se è analitica in ogni punto di \(\varOmega\).
+	
+	\begin{teorema}\label{th:errore-approx-analitica}
+		Se una funzione \(f \colon [\, a, b \,] \to \R\) è analitica in un aperto \(\varOmega \subseteq \C\) che contenga \([\, a, b \,]\), allora esiste \(\vartheta \in (\, 0, 1 \,)\) tale che
+		\begin{equation}\label{eq:errore-approx-analitica}
+			E_n (f) = \mathcal{O} \qty(\vartheta^n)
+		\end{equation}
+	\end{teorema}
+
+	Se una funzione è analitica su \(\C\), ovvero se è \emph{intera}, l'errore commesso approssimando tale funzione col suo polinomio di miglior approssimazione decade piú che esponenzialmente.
+	
+	\begin{teorema}[Bernstein]\label{th:bernstein}
+		Data una funzione \(f \colon [\, a, b \,] \to \R\), si ha
+		\begin{equation}\label{eq:bernstein}
+			\lim_{n \to \infty} \sqrt[n]{E_n (f)} = 0 \iff \text{\(f\) intera}
+		\end{equation}
+	\end{teorema}
+
+	\begin{osservazione}
+		Per quanto visto, la funzione di Runge \(f (x) \coloneqq \frac{1}{1 + x^2}\) è analitica in un aperto di \(\C\) che contenga \([\, -5, 5 \,]\). Una verifica sperimentale coi dati nella Tabella~\ref{tab:remez-errore} mostra che \(\vartheta \approx \num{0.814}\). Poiché, invece, la funzione \(\sin z\) è intera, l'errore di approssimazione con l'algoritmo di Remez scende alla precisione di macchina già per \(n\) non troppo alti.
+		
+		Per quanto riguarda la funzione \(f (x) \coloneqq \abs{x - 4}\), che è lipschitziana, dal Corollario~\ref{cor:jackson-lip-hold} segue che esiste \(M\) tale che \(E_n (f) = 10 M / n = \mathcal{O} (1 / n)\); con una verifica sperimentale si vede che \(E_n (f) \approx \num{0.85} / n\), ovvero che la convergenza del polinomio di miglior approssimazione è molto lenta.
+	\end{osservazione}
+
+\section{Polinomi di Chebyshev}
+	
+	\noindent Dato \(n \in \N\), consideriamo per \(x \in [\, -1, 1 \,]\) la funzione
+	\begin{equation}\label{eq:polin-cheb-def}
+		T_n (x) = \cos (n \arccos x)
+	\end{equation}
+	\emph{A priori} tale funzione può non essere un polinomio, ma si nota che
+	\begin{gather*}
+		T_0 (x) = \cos (0 \cdot \arccos x) = 1 \\
+		T_1 (x) = \cos (1 \arccos x) = x
+	\end{gather*}
+	Dalle formule trigonometriche di addizione e sottrazione
+	\begin{gather*}
+		\cos ((n + 1) \vartheta) = \cos (n \vartheta) \cos \vartheta - \sin (n \vartheta) \sin \vartheta \\
+		\cos ((n - 1) \vartheta) = \cos (n \vartheta) \cos \vartheta + \sin (n \vartheta) \sin \vartheta \\
+	\end{gather*}
+	si ottiene, sommando membro a membro,
+	\begin{equation*}
+		\cos ((n + 1) \vartheta) + \cos ((n - 1) \vartheta) = 2 \cos(n \vartheta) \cos \vartheta
+	\end{equation*}
+	Se ora si pone \(\vartheta = \arccos x\), si trova
+	\begin{equation}\label{eq:polin-cheb-formula}
+		T_{n + 1} (x) = 2 x \, T_n (x) - T_{n - 1} (x)
+	\end{equation}
+	e, dato che per \(n \in \Set{0, 1}\), i polinomi di Chebyshev corrispondenti sono effettivamente polinomi in senso classico, per ricorrenza \(\Set{T_n (x) : n \in \N}\) è una successione di polinomi, ove \(T_n (x)\) è di grado \(n\). Se \(n > 0\), il coefficiente del termine \(x^n\) è \(2^{n - 1}\).
+	
+	Troviamo ora gli zeri di un polinomio di Chebyshev \(T_n (x)\): essi sono i punti \(x_k\) tali che \(\cos (n \arccos x_k) = 0\); ricordando che il dominio della funzione \(\arccos\) è \([\, 0, \pi \,]\), gli zeri soddisfano
+	\begin{equation*}
+		n \arccos x_k = \frac{\pi}{2} + k \pi = \frac{(2 k + 1) \pi}{2}
+	\end{equation*}
+	ovvero
+	\begin{equation*}
+		\arccos x_k = \frac{(2 k + 1) \pi}{2 n}
+	\end{equation*}
+	e, applicando la funzione coseno ad ambo i membri, si ottiene per ogni \(k \in \Set{0, \dots, n - 1}\)
+	\begin{equation}\label{eq:polin-cheb-zeri}
+		x_k = \cos \qty(\frac{(2 k + 1) \pi}{2 n})
+	\end{equation}
+	Notiamo che gli zeri del polinomio di Chebyshev di grado \(n\) sono \(n\) punti distinti dell'intervallo aperto \((\, -1, 1 \,)\).
+	
+\section{Costanti di Lebesgue}
+	
+	\noindent Dati un intervallo chiuso e limitato \([\, a, b \,]\) e una funzione \(f \in \cont ([\, a, b \,])\), si consideri il polinomio \(p_n \in \P_n\) che interpola le \(n + 1\) coppie a due a due distinte \((x_k, f_k)\), con \(f_k = f (x_k)\) e \(k \in \Set{0, \dots, n}\). Definito per ogni \(k \in \Set{0, \dots, n}\) il \(k\)-esimo \emph{polinomio di Lagrange}
+	\begin{equation}\label{eq:polin-lagrange}
+		L_k (x) = \prod_{\mathclap{\substack{j = 0 \\ j \ne k}}}^n \frac{x - x_j}{x_k - x_j}
+	\end{equation}
+	è noto che
+	\begin{equation}\label{eq:polin-interp}
+		p_n (x) = \sum_{k = 0}^n f_k L_k (x)
+	\end{equation}
+	Se i valori \(f_k\) sono sostituiti con valori perturbati \(\tilde{f}_k\), allora, posto \(\tilde{p}_n (x) = \sum_{k = 0}^n \tilde{f}_k L_k (x)\), si ha
+	\begin{multline*}
+		\abs{p_n (x)  - \tilde{p}_n (x)} = \abs{\sum_{k = 0}^n (f_k - \tilde{f}_k) L_k (x)} \le \sum_{k = 0}^n \abs{f_k - \tilde{f}_k} \, \abs{L_k (x)} \\
+		\le \qty(\max_{k \in \Set{0, \dots, n}} \abs{f_k - \tilde{f}_k}) \sum_{k = 0}^n \abs{L_k (x)}
+	\end{multline*}
+	da cui segue che
+	\begin{equation*}
+		\max_{x \in [\, a, b \,]} \abs{p_n (x)  - \tilde{p}_n (x)} \le \qty(\max_{k \in \Set{0, \dots, n}} \abs{f_k - \tilde{f}_k}) \max_{x \in [\, a, b \,]} \sum_{k = 0}^n \abs{L_k (x)}
+	\end{equation*}
+	Definita la quantità
+	\begin{equation}\label{eq:cost-lebesgue}
+		\varLambda_n \coloneqq \max_{x \in [\, a, b \,]} \sum_{k = 0}^n \abs{L_k (x)}
+	\end{equation}
+	si ricava la stima
+	\begin{equation}\label{eq:errore-cost-lebesgue}
+		\norm{p_n - \tilde{p}_n}_\infty \le \qty(\max_{k \in \Set{0, \dots, n}} \abs{f_k - \tilde{f}_k}) \varLambda_n
+	\end{equation}
+
+	Osserviamo che \(\varLambda_n\), detta \emph{costante di Lebesgue} dell'insieme di punti \(x_0, \dots, x_n\), dipende esclusivamente dai polinomi di Lagrange e, quindi, dai soli punti di interpolazione. È chiaro che ciò rende \(\varLambda_n\) un indice di stabilità dell'interpolazione di Lagrange.
+	
+	Si può mostrare che, se \(\mathcal{L}_n\) è l'operatore lineare e limitato che associa ad ogni funzione \(f \in \cont([\, a, b \,])\) il suo polinomio interpolatore \(p_n\) nei punti \(x_0, \dots, x_n\), allora
+	\begin{equation}\label{eq:norma-interpolazione-lebesgue}
+		\varLambda_n = \norm{\mathcal{L}_n}_\infty = \max_{\substack{g \in \cont ([\, a, b \,]) \\ g \ne 0}} \frac{\norm{\mathcal{L}_n (g)}_\infty}{\norm{g}_\infty}
+	\end{equation}
+	
+	\begin{teorema}\label{th:errore-interpolaz-appross}
+		Se \(p_n \in \P_n\) è il polinomio interpolatore di una funzione \(f \in \cont([\, a, b \,])\) relativo ai punti \(x_0, \dots, x_n\), allora
+		\begin{equation}\label{eq:errore-interpolaz-appross}
+			\norm{f - p_n}_\infty \le (1 + \varLambda_n) E_n (f)
+		\end{equation}
+	\end{teorema}
+
+	\begin{proof}
+		Se \(f \in \P_n\), allora \(f = p_n = p_n^*\) e l'asserto è banalmente verificato. Supponiamo ora \(f \notin \P_n\); si ha, quindi, \(f - q_n \ne 0\) per ogni \(q_n \in \P_n\). Dal momento che \(q_n \in \P_n\), si ha \(\mathcal{L}_n (q_n) = q_n\) per l'unicità del polinomio interpolatore e per il principio d'identità dei polinomi. Per la linearità di \(\mathcal{L}_n\), poi, si ha
+		\begin{equation*}
+			\mathcal{L}_n (f - q_n) = \mathcal{L}_n (f) - \mathcal{L}_n (q_n) = p_n - q_n
+		\end{equation*}
+		Da ciò e dalla \eqref{eq:norma-interpolazione-lebesgue} segue che
+		\begin{equation*}
+			\varLambda_n = \max_{\substack{g \in \cont ([\, a, b \,]) \\ g \ne 0}} \frac{\norm{\mathcal{L}_n (g)}_\infty}{\norm{g}_\infty} \ge \frac{\norm{\mathcal{L}_n (f - q_n)}_\infty}{\norm{f - q_n}_\infty} = \frac{\norm{p_n - q_n}_\infty}{\norm{f - q_n}_\infty}
+		\end{equation*}
+		e, quindi, per ogni \(q_n \in \P_n\) vale \(\norm{p_n - q_n}_\infty \le \varLambda_n \norm{f - q_n}_\infty\). Applicando la diseguaglianza triangolare, si trova
+		\begin{multline*}
+			\norm{f - p_n}_\infty = \norm{(f - q_n) + (q_n - p_n)}_\infty \le \norm{f - q_n}_\infty + \norm{q_n - p_n}_\infty \\
+			\le \norm{f - q_n}_\infty + \varLambda_n \norm{f - q_n}_\infty = (1 + \varLambda_n) \norm{f - q_n}_\infty
+		\end{multline*}
+		da cui segue la \eqref{eq:errore-interpolaz-appross} scegliendo \(q_n = p_n^*\).
+	\end{proof}
+
+	Una conseguenza “informale” del Teorema~\ref{th:errore-interpolaz-appross} è che approssimare una funzione col suo polinomio interpolatore comporta un errore simile a quello compiuto approssimando col polinomio di miglior approssimazione se \(\varLambda_n\) è abbastanza piccola.
+	
+	\begin{esempio}
+		Di alcune suddivisioni dell'intervallo \([\, -1, 1 \,]\) conosciamo il comportamento asintotico di \(\varLambda_n\) al crescere di \(n\). Se si usano \(n + 1\) punti equispaziati, si mostra che
+		\begin{equation*}
+			\varLambda_n \sim \frac{2^{n + 1}}{\ee n \log n}
+		\end{equation*}
+		Se invece si usano i punti di Chebyshev, di forma \(x_k = \cos \qty(\frac{2 k - 1}{2 (n + 1)} \pi)\) con \(k \in \Set{1, \dots, n + 1}\), si trova l'andamento asintotico
+		\begin{equation*}
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \mathcal{O} \qty(\frac{1}{(n + 1)^2})
+		\end{equation*}
+		ove \(\gamma \approx \num{0.5772156649}\) è la costante di Eulero-Mascheroni.
+		
+		Se si usano i punti di Chebyshev estesi, di forma \(x_k = \frac{\cos \qty(\frac{2 k - 1}{2 (n + 1)} \pi)}{\cos \qty(\frac{1}{2 (n + 1)} \pi)}\) con \(k \in \Set{1, \dots, n + 1}\), si trova l'andamento asintotico
+		\begin{equation*}
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi}) - \frac{2}{3}] + \mathcal{O} \qty(\frac{1}{\log(n + 1)})
+		\end{equation*}
+		Si può dimostrare, poi, che il minimo andamento asintotico per la costante di Lebesgue deve valere
+		\begin{equation*}
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \mathcal{O} \qty(\frac{\log \log (n + 1)}{\log (n + 1)})
+		\end{equation*}
+	\end{esempio}
+
+	\begin{figure}[tpb]
+		\centering
+		
+		\begin{tikzpicture}
+			\begin{axis}[ymode=log, domain=5:50, only marks, legend entries = {\(\varLambda_n^{\textup{equi}}\), \(\varLambda_n^{\textup{Cheb}}\)}, legend pos = outer north east]
+				\addplot table {risorse/lebequi.dat};
+				\addplot table {risorse/lebcheb.dat};
+			\end{axis}
+		\end{tikzpicture}
+		
+		\caption{Confronto tra gli andamenti asintotici di \(\varLambda_n\) usando punti equispaziati e punti di Chebyshev.}\label{fig:lebesgue-equisp-cheb}
+	\end{figure}

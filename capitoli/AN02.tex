@@ -1,0 +1,428 @@
+\chapter{Approssimazione in spazi euclidei}
+
+\section{Richiami sugli spazi euclidei}
+
+	\begin{definizione}[Spazio euclideo reale]
+		Si dice \emph{spazio euclideo reale} uno spazio vettoriale \(\E\) su \(\R\) dotato di un'applicazione \((\cdot, \cdot) \colon \E \times \E \to \R\) tale che
+		\begin{subequations}
+			\begin{gather}
+				\forall x \in \E \colon (x, x) \ge 0 \\
+				\forall x \in \E \colon (x, x) = 0 \iff x = 0_\E \\
+				\forall x, y \in \E \colon (x, y) = (y, x) \\
+				\forall \lambda \in \R \colon \forall x, y \in \E \colon (\lambda x, y) = \lambda (x, y) \\
+				\forall x, y, z \in \E \colon (x + y, z) = (x, z) + (y, z)
+			\end{gather}
+		\end{subequations}
+	\end{definizione}
+	
+	\begin{definizione}[Spazio euclideo complesso]
+		Si dice \emph{spazio euclideo complesso} uno spazio vettoriale \(\E\) su \(\C\) dotato di un'applicazione \((\cdot, \cdot) \colon \E \times \E \to \C\) tale che
+		\begin{subequations}
+			\begin{gather}
+				\forall x \in \E \colon (x, x) \ge 0 \\
+				\forall x \in \E \colon (x, x) = 0 \iff x = 0_\E \\
+				\forall x, y \in \E \colon (x, y) = \overline{(y, x)} \\
+				\forall \lambda \in \C \colon \forall x, y \in \E \colon (\lambda x, y) = \lambda (x, y) \\
+				\forall \lambda \in \C \colon \forall x, y \in \E \colon (x, \lambda y) = \overline{\lambda} (x, y) \\
+				\forall x, y, z \in \E \colon (x, y + z) = (x, y) + (x, z)
+			\end{gather}
+		\end{subequations}
+	\end{definizione}
+
+	A partire da queste due definizioni si può definire lo spazio normato \((\E, \norm{\cdot})\) dotato della norma \(\norm{f}_2 = \sqrt{(f, f)}\).
+	
+	\begin{osservazione}
+		Si nota facilmente che
+		\begin{gather*}
+			\qty(x, \sum_{k = 1}^n y_k) = \sum_{k = 1}^n (x, y_k) \\
+			\qty(\sum_{k = 1}^n x_k, y) = \overline{\qty(y, \sum_{k = 1}^n x_k)} = \overline{\sum_{k = 1}^n (y, x_k)} = \sum_{k = 1}^n \overline{(y, x_k)} = \sum_{k = 1}^n (x_k, y)
+		\end{gather*}
+	\end{osservazione}	
+
+	\begin{esempio}
+		\(\R^n\) dotato del prodotto scalare usuale è uno spazio euclideo; se \(e_1, \dots, e_n\) è una sua base ortonormale, ovvero si verifica \((e_j, e_k) = \delta_{j, k}\) per ogni \(j, k \in \Set{1, \dots, n}\), allora per ogni \(x \in \R^n\) vale la scrittura unica \(x = \sum_{k = 1}^n c_k e_k\), con \(c_k = (x, e_k)\).
+		
+		Lo spazio \(\cont ([\, a, b \,])\) delle funzioni continue su un compatto \([\, a, b \,]\) dotato del prodotto scalare \((f, g) = \int_a^b f (x) g (x) \dd{x}\) è uno spazio euclideo.
+		
+		Lo spazio \(L_\R^2 ([\, a, b \,])\) delle funzioni reali misurabili su un compatto \([\, a, b \,]\) e di modulo al quadrato integrabile dotato del prodotto scalare \((f, g) = \int_a^b f (x) g (x) \dd{x}\) è uno spazio euclideo completo, ovvero tale che ogni successione di Cauchy è convergente.
+		
+		Lo spazio \(L_\C^2 ([\, a, b \,])\) delle funzioni complesse misurabili su un compatto \([\, a, b \,]\) e di modulo al quadrato integrabile dotato del prodotto scalare \((f, g) = \int_a^b f (x) \overline{g (x)} \dd{x}\) è uno spazio euclideo completo.
+	\end{esempio}
+	
+	\begin{teorema}[Pitagora]\label{th:pitagora}
+		Dato uno spazio euclideo \(\E\), se \(f, g \in \E\) verificano \((f, g) = 0\), allora \(\norm{f + g}_2^2 = \norm{f}_2^2 + \norm{g}_2^2\).
+	\end{teorema}
+	
+	\begin{proof}
+		Con un conto diretto si vede che
+		\begin{equation*}
+			\begin{split}
+				\norm{f + g}_2^2 = (f + g, f + g) &= (f, f) + (f, g) + (g, f) + (g, g) \\
+				&= \norm{f}_2^2 + 0 + 0 + \norm{g}_2^2 \\
+				&= \norm{f}_2^2 + \norm{g}_2^2\qedhere
+			\end{split}
+		\end{equation*}
+	\end{proof}
+
+	\begin{teorema}[Proiezione ortogonale]\label{th:proiez-ortog}
+		Dato uno spazio euclideo complesso \(\E\), sia \(f \in \E\); se \(\Set{\varphi_j | i \in \Set{1, \dots, N}} \subset \E\) è un insieme finito di elementi linearmente indipendenti, allora \(f^* = \sum_{j = 1}^N c_j^* \varphi_j\), ove i \(c_j^* \!\) soddisfano le \emph{equazioni normali}
+		\begin{equation}\label{eq:eq-normali}
+			\forall j \in \Set{1, \dots, N} \colon \sum_{k = 1}^N (\varphi_j, \varphi_k) c_k^* = (\varphi_j, f)
+		\end{equation}
+		è tale che\label{eq:proiez-ortog}
+		\begin{equation}
+			\norm{f - f^*}_2 = \min_{g \in \Braket{\varphi_1, \dots, \varphi_k}} \norm{f - g}_2
+		\end{equation}
+		Questa soluzione è tale che \(f^* - f\) è ortogonale a tutti i \(\varphi_j\), o equivalentemente si ha \((f, \varphi_j) = (f^*, \varphi_j)\) per ogni \(j \in \Set{1, \dots, N}\).
+	\end{teorema}
+
+	\begin{proof}
+		Mostriamo innanzitutto che la soluzione di miglior approssimazione è unica. Se \(f^* \in \E\) è tale che \(f^* - f \in \Braket{\varphi_1, \dots, \varphi_N}^\perp\) e \(\hat{f} \ne f^*\) è elemento di miglior approssimazione nel senso della \eqref{eq:proiez-ortog}, allora \(f^* - \hat{f} \in \Braket{\varphi_1, \dots, \varphi_N}\); per il Teorema~\ref{th:pitagora} si ha
+		\begin{equation*}
+			\norm{f - \hat{f}}_2^2 = \norm{(f - f^*) + (f^* - \hat{f})}_2^2 = \norm{f - f^*}_2^2 + \norm{f^* - \hat{f}}_2^2 > \norm{f - f^*}_2^2
+		\end{equation*}
+		il che è contro l'ipotesi che \(\hat{f}\) sia di miglior approssimazione.
+		
+		Rimane da mostrare l'esistenza di \(f^*\), ovvero di \(c_j^*\) che soddisfino per ogni \(k \in \Set{1, \dots, N}\)
+		\begin{equation*}
+			\begin{split}
+				0 = \qty(\sum_{j = 1}^N c_j^* \varphi_j - f, \varphi_k) &= \qty(\sum_{j = 1}^N c_j^* (\varphi_j, \varphi_k)) - (f, \varphi_k) \\
+				&= \sum_{j = 1}^N (\varphi_j, \varphi_k) c_j^* - (f, \varphi_k)
+			\end{split}
+		\end{equation*}
+		Questa condizione, equivalente di fatto alla \eqref{eq:eq-normali}, è soddisfatta se e solo se la matrice \(G\) che ha come coordinata \((j, k)\) il prodotto interno \((\varphi_j, \varphi_k)\) è non singolare. Certamente \(G\) è hermitiana, in quanto \((\varphi_j, \varphi_k) = \overline{(\varphi_k, \varphi_j)}\); per questo motivo si ha per ogni \(v \in \C^N \setminus \Set{0_{\C^N}}\)
+		\begin{equation*}
+			\her{\qty(\her{v} G v)} = \her{v} \her{G} \her{\qty(\her{v})} = \her{v} G v \iff \her{v} G v \in \R
+		\end{equation*}
+		Scelto ora \(v = \sum_{j = 1}^N v_j \varphi_j \ne 0\) e definito \(u = \sum_{j = 1}^N \overline{v}_j \varphi_j \ne 0\), si ha
+		\begin{equation*}
+			\begin{split}
+				\her{v} G v &= \sum_{j = 1}^N \overline{v}_j \sum_{k = 1}^N G_{j, k} v_k \\
+				&= \sum_{j = 1}^N \overline{v}_j \sum_{k = 1}^N (\varphi_j, \varphi_k) v_k = \sum_{j = 1}^N \overline{v}_j \sum_{k = 1}^N (\varphi_j, \overline{v}_k \varphi_k) \\
+				&= \sum_{j = 1}^N \overline{v}_j \qty(\varphi_j, \sum_{k = 1}^N \overline{v}_k \varphi_k) = \sum_{j = 1}^N \qty(\overline{v}_j \varphi_j, \sum_{k = 1}^N \overline{v}_k \varphi_k) \\
+				&= \qty(\sum_{j = 1}^N \overline{v}_j \varphi_j, \sum_{k = 1}^N \overline{v}_k \varphi_k) = (u, u) = \norm{u}_2^2 > 0
+			\end{split}
+		\end{equation*}
+		da cui è evidente che \(G\) è definita positiva e, quindi, non singolare.
+	\end{proof}
+
+	\begin{osservazione}
+		Se l'insieme \(\Set{\varphi_1, \dots, \varphi_N}\) non è composto di vettori a due a due ortogonali, per ottenere l'elemento di miglior approssimazione bisogna:
+		\begin{itemize}
+			\item calcolare i prodotti scalari \(G_{j, k} = (\varphi_j, \varphi_k)\) per \(j, k \in \Set{1, \dots, N}\);
+			\item calcolare i coefficienti \(b_j = (\varphi_j, f)\) per \(j \in \Set{1, \dots, N}\);
+			\item risolvere numericamente il sistema lineare \(c^* G = b\).
+		\end{itemize}
+		Se, invece, l'insieme dei \(\varphi_j\) consta di elementi a due a due ortogonali, ovvero è una base ortogonale del suo sottospazio generato, si vede che la risoluzione delle equazioni \eqref{eq:eq-normali} è data dai \emph{coefficienti di Fourier}
+		\begin{equation}\label{eq:coeff-fourier}
+			c_k^* = \frac{(\varphi_k, f)}{(\varphi_k, \varphi_k)}
+		\end{equation}
+		al variare di \(k \in \Set{1, \dots, N}\), il che necessita di soli \(2 N\) prodotti interni e \(N\) divisioni. Il procedimento è ancora meno dispendioso se i \(\varphi_j\) formano una base ortonormale del proprio sottospazio generato, in quanto non è necessario effettuare le divisioni.
+	\end{osservazione}
+
+	I prossimi risultati servono a chiarire il concetto di \emph{base} di uno spazio euclideo di dimensione anche infinita e sotto quali ipotesi si possa ottenere una base numerabile oppure ortonormale.
+	
+	\begin{definizione}[Spazio separabile]
+		Uno spazio euclideo \(\E\) si dice \emph{separabile} se esiste \(S \subseteq \E\) numerabile denso in \(\E\).
+	\end{definizione}
+
+	\begin{teorema}\label{th:base-sp-euclideo-separabile}
+		In uno spazio euclideo separabile \(\E\) esiste un sottoinsieme \(\Set{\varphi_k | k \in \N}\) di cardinalità finita o al piú numerabile tale che, se \(x \in \E\), allora esistono \(c_k\) con \(k \in \N\) tali che
+		\begin{equation*}
+			x = \sum_{k \in \N} c_k \varphi_k
+		\end{equation*}
+		ovvero
+		\begin{equation*}
+			\lim_{n \to \infty} \norm{x - \sum_{k = 0}^n c_k \varphi_k}_2 = 0
+		\end{equation*}
+		L'insieme \(\Set{\varphi_k | k \in \N}\) prende il nome di \emph{base} di \(\E\).
+	\end{teorema}
+
+	D'ora in avanti supporremo sempre che lo spazio euclideo \(\E\) è separabile.
+	
+	Si può dimostrare il seguente teorema, che generalizza a spazi di dimensione infinita l'algoritmo di Gram-Schmidt.
+	
+	\begin{teorema}\label{th:gram-schmidt}
+		Dato uno spazio euclideo \(\E\), se esiste un insieme numerabile \(\Set{f_n | n \in \N^*} \subseteq \E\) di elementi linearmente indipendenti, allora \(\E\) contiene un insieme \(\Set{\varphi_k | k \in \N^*}\) tale che:
+		\begin{itemize}
+			\item per ogni \(m, n \in \N^*\) si ha \((\varphi_m, \varphi_n) = \delta_{m, n}\);
+			\item \(\varphi_n \in \Braket{f_1, \dots, f_n}\) per ogni \(n \in \N^*\);
+			\item \(f_n \in \Braket{\varphi_1, \dots, \varphi_n}\) per ogni \(n \in \N^*\).
+		\end{itemize}
+	\end{teorema}
+
+	Si osservi che l'insieme degli \(f_n\) può anche essere infinito, al contrario di ciò che è richiesto per ortogonalizzare le matrici, cosí come può non essere finito anche l'insieme dei \(\varphi_k\). Dal Teorema~\ref{th:gram-schmidt}, inoltre, segue che se \(\E\) ha una base numerabile di elementi linearmente indipendenti, allora ammette anche una base ortonormale numerabile.
+	
+	\begin{definizione}[Serie di Fourier]\label{def:serie-fourier}
+		Dato uno spazio euclideo \(\E\) dotato di una successione di elementi ortonormali \(\Set{\varphi_k | k \in \N^*}\), se per \(f \in \E\) si definiscono \(c_k = (f, \varphi_k)\) per ogni \(k \in \N^*\), si dice \emph{serie di Fourier} di \(f\) la serie formale
+		\begin{equation}\label{eq:serie-fourier}
+			\sum_{k = 1}^\infty c_k \varphi_k
+		\end{equation}
+	\end{definizione}
+
+	\begin{definizione}\label{def:chiuso}
+		Sia \(\Set{\varphi_n | n \in \N^*}\) una successione di elementi ortonormali di uno spazio vettoriale normato \(X\). Se ogni \(f \in X\) può essere scritto formalmente come serie di Fourier mediante i \(\varphi_n\), allora l'insieme dei \(\varphi_n\) si dice \emph{chiuso in \(X\)}.
+	\end{definizione}
+
+	\begin{teorema}[Bessel-Parseval]\label{th:bessel-parseval}
+		Data una successione \(\Set{\varphi_k | k \in \N^*}\) di elementi ortonormali di uno spazio euclideo \(\E\), se \(f \in \E\), allora
+		\begin{equation}\label{eq:bessel-parseval}
+			\min_{a_1, \dots, a_n} \norm{f - \sum_{k = 1}^n a_k \varphi_k}_2 = \sqrt{\norm{f}_2^2 - \sum_{k = 1}^n c_k^2}
+		\end{equation}
+		ove \(c_k = (f, \varphi_k)\) per ogni \(k \in \Set{1, \dots, n}\). Vale, inoltre, la diseguaglianza di Bessel
+		\begin{equation}\label{eq:bessel}
+			\sum_{k = 1}^\infty c_k^2 \le \norm{f}_2^2
+		\end{equation}
+		e vale l'uguaglianza, detta uguaglianza di Parseval, per ogni \(f \in \E\)
+		\begin{equation}\label{eq:parseval}
+			\sum_{k = 1}^\infty c_k^2 = \norm{f}_2^2
+		\end{equation}
+		se e solo se l'insieme \(\Set{\varphi_k | k \in \N^*}\) è chiuso in \(\E\).
+	\end{teorema}
+
+	\begin{osservazione}
+		In base al Teorema~\ref{th:bessel-parseval}, la soluzione al problema di miglior approssimazione in norma euclidea esiste ed è unica, ed è determinata dai coefficienti di Fourier. In virtú della \eqref{eq:parseval}, poi, se \(\Set{c_1, \dots, c_n}\) determina l'elemento di miglior approssimazione in norma indotta dal prodotto scalare in \(S_n = \Braket{\varphi_1, \dots, \varphi_n}\), allora
+		\begin{equation*}
+			\lim_{n \to \infty} \norm{f -  \sum_{k = 1}^n c_k \varphi_k}_2 = \lim_{n \to \infty} \sqrt{\norm{f}_2^2 - \sum_{k = 1}^n c_k^2} = 0
+		\end{equation*}
+	\end{osservazione}
+
+\section{Polinomi trigonometrici}
+	
+	\begin{definizione}[Polinomi trigonometrici reali]\label{def:polin-trig-reali}
+		Si dice \emph{spazio dei polinomi trigonometrici reali di grado \(n\)} lo spazio vettoriale \(\T_n^\R\) costituito dalle combinazioni lineari delle funzioni
+		\begin{subequations}
+			\begin{align}\label{eq:polin-trig-reali}
+				\varphi_0^* (x)         & = 1          \\
+				\varphi_{2 k - 1}^* (x) & = \cos (k x) \\
+				\varphi_{2 k}^* (x)     & = \sin (k x)
+			\end{align}
+		\end{subequations}
+		per \(k \in \Set{1, \dots, n}\).
+	\end{definizione}
+
+	Dati \(n, m \in \N\), valgono le formule di Werner
+		\begin{align*}
+			\cos (n x) \cos (m x) &= \frac{\cos ((n + m) x) + \cos ((n - m) x)}{2} \\
+			\sin (n x) \sin (m x) &= \frac{\cos ((n - m) x) - \cos ((n + m) x)}{2}
+		\end{align*}
+	e si ha
+	\begin{equation*}
+		\int_{- \pi}^\pi \cos (k x) \dd{x} =
+		\begin{cases}
+			0     & k \ne 0 \\
+			2 \pi & k = 0
+		\end{cases}
+	\end{equation*}
+	A partire da queste identità si trova che
+		\begin{gather*}
+			n \in \N^* \implies \int_{- \pi}^\pi \cos^2 (n x) \dd{x} = \int_{- \pi}^\pi \frac{\cos (2 n x) + 1}{2} \dd{x} = \pi \\
+			n \in \N^* \implies \int_{- \pi}^\pi \sin^2 (n x) \dd{x} = \int_{- \pi}^\pi \qty(1 - \cos^2 (n x)) \dd{x} = \pi \\
+			m, n \in \N^* \implies \int_{- \pi}^\pi \cos (n x) \sin (m x) \dd{x} = 0 \\
+			m, n \in \N^*, m \ne n \implies \int_{- \pi}^\pi \cos (n x) \cos (m x) \dd{x} = 0 \\
+			m, n \in \N^*, m \ne n \implies \int_{- \pi}^\pi \sin (n x) \sin (m x) \dd{x} = 0
+		\end{gather*}
+
+	Consideriamo ora lo spazio \(L^2_\R ([\,- \pi, \pi \,])\) delle funzioni \(f \colon [\,- \pi, \pi \,] \to \R\) misurabili tali che \(\abs{f}^2\) sia integrabile e dotiamolo del prodotto scalare
+	\begin{equation}\label{eq:prod-scal-l2r}
+		(f, g) \coloneqq \int_{- \pi}^\pi f (x) g (x) \dd{x}
+	\end{equation}
+	Si può dimostrare che le \(2 n + 1\) funzioni
+	\begin{subequations}\label{eq:polin-trig-reali-normalizzati}
+		\begin{align}
+			\varphi_0 (t)         & = \frac{1}{\sqrt{2 \pi}}      \\
+			\varphi_{2 k - 1} (t) & = \frac{\cos k t}{\sqrt{\pi}} \\
+			\varphi_{2 k} (t)     & = \frac{\sin k t}{\sqrt{\pi}}
+		\end{align}
+	\end{subequations}
+	definite per \(k \in \Set{1, \dots, n}\), formano una base ortonormale di \(\T_n^\R\), che dotiamo del prodotto scalare definito nella \eqref{eq:prod-scal-l2r}. Si può anche vedere che la successione \(\Set{\varphi_n | n \in \N}\) è chiusa in \(L^2_\R ([\,- \pi, \pi \,])\).
+	
+	In virtú di queste osservazioni e del Teorema~\ref{th:bessel-parseval} si può dimostrare il seguente asserto.
+	
+	\begin{teorema}
+		Considerata la successione di elementi ortonormali in \(L^2_\R ([\,- \pi, \pi \,])\) definita nella \eqref{eq:polin-trig-reali-normalizzati}, i coefficienti di Fourier che determinano l'elemento di miglior approssimazione di \(f \in L^2_\R ([\,- \pi, \pi \,])\) secondo il prodotto scalare definito nella \eqref{eq:prod-scal-l2r} sono
+		\begin{subequations}
+			\begin{align}
+				c_0         & = \frac{1}{\sqrt{2 \pi}} \int_{- \pi}^\pi f (x) \dd{x}          \\
+				c_{2 k - 1} & = \frac{1}{\sqrt{\pi}} \int_{- \pi}^\pi f (x) \cos (k x) \dd{x} \\
+				c_{2 k}     & = \frac{1}{\sqrt{\pi}} \int_{- \pi}^\pi f (x) \sin (k x) \dd{x}
+			\end{align}
+		\end{subequations}
+		definiti per \(k \in \N^*\) e si verifica \(\lim_{n \to \infty} E_n (f) = 0\).
+	\end{teorema}
+
+	\begin{definizione}[Polinomi trigonometrici complessi]\label{def:polin-trig-complessi}
+		Si dice \emph{spazio dei polinomi trigonometrici complessi di grado \(n\)} lo spazio vettoriale \(\T_n^\C\) costituito dalle combinazioni lineari delle funzioni
+		\begin{subequations}\label{eq:polin-trig-complessi}
+			\begin{align}
+				\varphi_0^* (x)         & = 1              \\
+				\varphi_{2 k - 1}^* (x) & = \exp (- \ii k x) \\
+				\varphi_{2 k}^* (x)     & = \exp (\ii k x)
+			\end{align}
+		\end{subequations}
+		per \(k \in \Set{1, \dots, n}\), ove \(\ii\) indica la costante immaginaria.
+	\end{definizione}
+
+	\begin{teorema}
+		La successione \(\Set{\varphi_k^* | k \in \N}\) definita nella \eqref{eq:polin-trig-complessi} è composta di elementi ortogonali di \(L^2_\C ([\, 0, 2 \pi \,])\).
+	\end{teorema}
+	
+	\begin{proof}
+		In base all'identità di Eulero \(\exp (\ii t) = \cos t + \ii \sin t\), valida per ogni \(t \in \R\), si ha per ogni \(k \in \Z\) che
+		\begin{equation*}
+			\overline{\exp (\ii k x)} = \overline{\cos (k x) + \ii \sin (k x)} = \cos (k x) - \ii \sin (k x) = \exp (- \ii k x)
+		\end{equation*}
+		Dall'uguaglianza \(\exp (\ii j x) \exp (\ii k x) = \exp (\ii (j + k) x)\), valida per ogni \(j, k \in \Z\), si ricava
+		\begin{equation*}
+			\int_0^{\mathrlap{2 \pi}} \exp (\ii j x) \, \overline{\exp(\ii k x)} \dd{x} = \int_0^{\mathrlap{2 \pi}} \exp (\ii (j - k) x) \dd{x}
+		\end{equation*}
+		Se \(j = k\), l'integrale sopra vale \(2 \pi\), mentre se \(j \ne k\) si ha
+		\begin{equation*}
+			\begin{split}
+				\int_0^{\mathrlap{2 \pi}} \exp (\ii (j - k) x) \dd{x} &= \int_0^{\mathrlap{2 \pi}} \cos ((j - k) x) + \ii \sin ((j - k) x) \dd{x} \\
+				&= \frac{1}{j - k} \int_0^{\mathrlap{2 (j - k) \pi}} \quad \cos t + \ii \sin t \dd{t} \\
+				&= \frac{1}{j - k} \eval[\sin t - \ii \cos t|_{t = 0}^{2 (j - k) \pi} = 0
+			\end{split}
+		\end{equation*}
+		dato che \(\sin\) e \(\cos\) sono funzioni di periodo \(2 \pi\).
+	\end{proof}
+
+	Dal momento che la successione \(\Set{\varphi_k^* | k \in \N}\) è chiusa in \(L_\C^2 ([\, 0, 2 \pi \,])\), si può enunciare il seguente teorema.
+	
+	\begin{teorema}
+		Considerata la successione \(\Set{\varphi_k | k \in \N}\) di elementi ortonormali definita da
+		\begin{subequations}
+			\begin{align}
+				\varphi_0 (x)         & = \frac{1}{\sqrt{2 \pi}}                \\
+				\varphi_{2 k - 1} (x) & = \frac{\exp (- \ii k x)}{\sqrt{2 \pi}} \\
+				\varphi_{2 k} (x)     & = \frac{\exp (\ii k x)}{\sqrt{2 \pi}}
+			\end{align}
+		\end{subequations}
+		i coefficienti di Fourier che determinano l'elemento di miglior approssimazione di una funzione \(f \in L_\C^2 ([\, 0, 2 \pi \,])\) secondo il prodotto scalare definito da \((f, g) \coloneqq \int_0^{2 \pi} f (x) \overline{g (x)} \dd{x}\) sono
+		\begin{subequations}
+			\begin{align}
+				c_0         & = \frac{1}{\sqrt{2 \pi}} \int_0^{\mathrlap{2 \pi}} f (x) \dd{x}                  \\
+				c_{2 k - 1} & = \frac{1}{\sqrt{2 \pi}} \int_0^{\mathrlap{2 \pi}} f (x) \exp (\ii k x) \dd{x}   \\
+				c_{2 k}     & = \frac{1}{\sqrt{2 \pi}} \int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}
+			\end{align}
+		\end{subequations}
+		definiti per \(k \in \N^*\) e si verifica \(\lim_{n \to \infty} E_n (f) = 0\).
+	\end{teorema}
+
+	Di solito le serie di Fourier sono scritte attraverso la serie bilatera
+	\begin{equation*}
+		f (x) = \sum_{k = - \infty}^\infty \gamma_k \exp (\ii k x)
+	\end{equation*}
+	ove si è posto
+	\begin{equation}\label{eq:coeff-fourier-complessi}
+		\gamma_k = \frac{1}{2 \pi} \int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}
+	\end{equation}
+	Si ha, infatti,
+	\begin{equation}\label{eq:fourier-formula-complessa}
+		\begin{split}
+			f (x) &= \sum_{k = - \infty}^\infty \frac{1}{\sqrt{2 \pi}} \qty(\int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}) \frac{\exp (\ii k x)}{\sqrt{2 \pi}} \\
+			&= \sum_{k = - \infty}^\infty \frac{1}{2 \pi} \qty(\int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}) \exp (\ii k x)
+		\end{split}
+	\end{equation}
+
+	Data una funzione \(f \in L_\C^2 ([\, 0, 2 \pi \,])\) continua in \([\, 0, 2 \pi \,]\) e tale che \(f (0) = f (2 \pi)\), essa ammette una rappresentazione formale come nella \eqref{eq:fourier-formula-complessa}. In pratica, però, non si calcola tutta la serie, ma si considera un'approssimazione del tipo
+	\begin{equation}\label{eq:funz-fourier-approx}
+		f_M (x) = \sum_{k = - M}^M \frac{1}{2 \pi} \qty(\int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}) \exp (\ii k x)
+	\end{equation}
+	con un \(M \in \N\) sufficientemente grande. Questa approssimazione trigonometrica richiede che si calcolino numericamente i coefficienti
+	\begin{equation}\label{eq:coeff-approx-fourier}
+		I_k \coloneqq \frac{1}{2 \pi} \int_0^{\mathrlap{2 \pi}} f (x) \exp (- \ii k x) \dd{x}
+	\end{equation}
+	per \(k \in \Set{-M, \dots, M}\). È possibile dimostrare che, se \(f\) è continua e periodica, ovvero \(f (0) = f (2 \pi)\), è vantaggioso calcolare i coefficienti nella \eqref{eq:coeff-approx-fourier} mediante la \emph{formula dei trapezi composta}
+	\begin{equation*}
+		\int_a^b g(x) \dd{x} \approx \frac{h}{2} (g (a) + g (b)) + h \sum_{j = 1}^{M^* - 1} f (x_j)
+	\end{equation*}
+	ove \(x_j = a + j h\) per \(j \in \Set{0, \dots, M^*}\) e \(h = (b - a) / M^*\). Nel caso particolare in cui \(g \colon [\, 0, 2 \pi \,] \to \R\) sia continua e periodica, ovvero \(g (0) = g (2 \pi)\), usando la formula dei trapezi composta su \(M^* + 1\) nodi equispaziati \(x_j = j h\), ove \(j \in \Set{0, \dots, M^*}\) e \(h = 2 \pi / M^*\), si trova
+	\begin{equation*}
+		\begin{split}
+			\int_0^{2 \pi} g (x) \dd{x} &\approx \frac{h}{2} (g (0) + g (2 \pi)) + h \sum_{j = 1}^{M^* - 1} g (x_j) \\
+			&= h \, g (2 \pi) + h \sum_{j = 1}^{M^* - 1} g (x_j) \\
+			&= h \sum_{j = 1}^{M^*} g (x_j) = \frac{2 \pi}{M^*} \sum_{j = 1}^{M^*} g (x_j) \\
+			&= \frac{2 \pi}{M^*} \sum_{j = 1}^{M^*} g \qty(\frac{2 \pi j}{M^*})
+		\end{split}
+	\end{equation*}
+	Supponendo, ora, che \(f\) sia continua e periodica in \([\, 0, 2 \pi \,]\), se per ogni \(k \in \Set{-M, \dots, M}\) consideriamo \(g (x) = f (x) \exp (- \ii k x)\) e definiamo \(M^* = 2 M + 1\), per come sono definiti i \(\gamma_k\) nella \eqref{eq:coeff-fourier-complessi} si ottiene
+	\begin{equation}
+		\gamma_k \approx \frac{1}{2 M + 1} \sum_{j = 1}^{2 M + 1} f \qty(\frac{2 \pi j}{2 M + 1}) \, \exp \qty(- \ii k \frac{2 \pi j}{2 M + 1})
+	\end{equation}
+	Se, poi, definiamo per \(j \in \Set{1, \dots, 2 M + 1}\)
+	\begin{equation*}
+		\mathcal{X}_j = \frac{1}{2 M + 1} f \qty(\frac{2 \pi j}{2 M + 1})
+	\end{equation*}
+	e a partire da essi
+	\begin{equation}\label{eq:coeff-fourier-approx}
+		\gammanum{k} = \sum_{j = 1}^{2 M + 1} \mathcal{X}_j \exp \qty(- \ii k \frac{2 \pi j}{2 M + 1})
+	\end{equation}
+	si vede che \(\gamma_k \approx \gammanum{k}\) per ogni \(k \in \Set{-M, \dots, M}\). Sotto opportune condizioni, si può ricorrere all'algoritmo della trasformata rapida di Fourier (\textsc{fft}) per calcolare i \(2 M + 1\) coefficienti \(\gammanum{-M}, \dots, \gammanum{M}\) in \(\mathcal{O} (M \log M)\) operazioni anziché in \(\mathcal{O} (M^2)\), come si riuscirebbe con altri algoritmi.
+	
+	\begin{teorema}[Polinomio trigonometrico interpolante]\label{th:polin-trig-interp}
+		Se una funzione \(f \colon [\, 0, 2 \pi \,] \to \R\) è continua e periodica, allora il polinomio trigonometrico
+		\begin{equation}\label{eq:polin-trig-interp}
+			p_M (x) = \sum_{k = - M}^M \gammanum{k} \exp(\ii k x)
+		\end{equation}
+		con \(\gammanum{k}\) definito come nella \eqref{eq:coeff-fourier-approx}, interpola \(f\) nei nodi equispaziati
+		\begin{equation*}
+			x_j = \frac{2 \pi j}{2 M + 1}
+		\end{equation*}
+		definiti per \(j \in \Set{0, \dots, 2 M + 1}\).
+	\end{teorema}
+
+	Con i risultati seguenti ci assicuriamo del margine di errore in norma euclidea della funzione \(f_M\) definita nella \eqref{eq:funz-fourier-approx} e dell'interpolante \(p_M\) definito nella \eqref{eq:polin-trig-interp} e, di conseguenza, della natura dell'errore commesso nell'approssimare numericamente i \(\gamma_k\) coi \(\gammanum{k}\).
+	
+	\begin{definizione}\label{def:variaz-limit}
+		Una funzione \(f \colon [\, a, b \,] \to \R\) si dice \emph{a variazione limitata} se
+		\begin{equation}
+			T_a^b (f) \coloneqq \sup \Set{\sum_{i = 1}^n \abs{f (t_i) - f (t_{i - 1})} : a = t_0 < \dots < t_n = b} < + \infty
+		\end{equation}
+		La quantità \(T_a^b (f)\) prende il nome di \emph{variazione} di \(f\).
+	\end{definizione}
+
+	\begin{esempio}
+		Le funzioni lipschitziane su \([\, a, b \,]\) sono a variazione limitata, perché esiste \(L \in \R_{\ge 0}\) tale che \(T_a^b (f) \le L (b - a)\). Per lo stesso motivo le funzioni di classe \(\cont^1 ([\, a, b \,])\) sono anch'esse a variazione limitata.
+	\end{esempio}
+	
+	Nei seguenti teoremi usiamo la notazione
+	\begin{equation}
+		S (\alpha) \coloneqq \Set{x + i y \in \C : -\alpha < y < \alpha}
+	\end{equation}
+	definita per ogni \(\alpha \in \R_{\ge 0}\).
+	
+	\begin{teorema}
+		Se \(f \colon [\, 0, 2 \pi \,] \to \R\) è una funzione differenziabile \(\eta \in \N^*\) volte, periodica e tale che \(f^{(\eta)}\) sia periodica e a variazione limitata \(V\) in \([\, 0, 2 \pi \,]\), definiti
+		\begin{gather*}
+			I (f) = \int_0^{2 \pi} f (x) \dd{x} \\
+			I_N (f) = \frac{\pi}{N} (f (0) + f (2 \pi)) + \frac{2 \pi}{N} \sum_{j = 2}^{N - 1} f \qty(\frac{2 \pi j}{N})
+		\end{gather*}
+		allora
+		\begin{equation}
+			\abs{I_N (f) - I (f)} \le \frac{4 V}{N^{\eta + 1}}
+		\end{equation}
+		Se, poi, \(f\) è analitica in \(S (\alpha)\) e ivi \(\abs{f (t)} \le \tilde{M}\), allora
+		\begin{equation}
+			\abs{I_N (f) - I (f)} \le \frac{4 \pi \tilde{M}}{\ee^{\alpha N} - 1}
+		\end{equation}
+	\end{teorema}
+
+	\begin{teorema}
+		Se \(f \colon [\, 0, 2 \pi \,] \to \R\) è una funzione differenziabile \(\eta \in \N^*\) volte, periodica e tale che \(f^{(\eta)}\) sia periodica e a variazione limitata \(V\) in \([\, 0, 2 \pi \,]\), allora
+		\begin{equation}
+			\abs{\gamma_k} \le \frac{V}{2 \pi \abs{k}^{\eta + 1}}
+		\end{equation}
+		Se, poi, \(f\) è analitica in \(S (\alpha)\) e ivi \(\abs{f (t)} \le \tilde{M}\), allora
+		\begin{equation}
+			\abs{\gamma_k} \le \tilde{M} \ee^{- \alpha \abs{k}}
+		\end{equation}
+	\end{teorema}
+
+	\begin{teorema}
+		Se \(f \colon [\, 0, 2 \pi \,] \to \R\) è una funzione differenziabile \(\eta \in \N^*\) volte, periodica e tale che \(f^{(\eta)}\) sia periodica e a variazione limitata \(V\) in \([\, 0, 2 \pi \,]\), allora \(f_M\) e \(p_M\) definiti nella \eqref{eq:funz-fourier-approx} e nella \eqref{eq:polin-trig-interp} rispettivamente verificano
+		\begin{align}
+			\norm{f - f_M}_\infty &\le \frac{V}{\pi \eta M^\eta} &
+			\norm{f - p_M}_\infty &\le \frac{2 V}{\pi \eta M^\eta}
+		\end{align}
+	\end{teorema}
