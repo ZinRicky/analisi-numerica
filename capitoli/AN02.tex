@@ -110,12 +110,12 @@
 		Se l'insieme \(\Set{\varphi_1, \dots, \varphi_N}\) non è composto di vettori a due a due ortogonali, per ottenere l'elemento di miglior approssimazione bisogna:
 		\begin{itemize}
 			\item calcolare i prodotti scalari \(G_{j, k} = (\varphi_j, \varphi_k)\) per \(j, k \in \Set{1, \dots, N}\);
-			\item calcolare i coefficienti \(b_j = (\varphi_j, f)\) per \(j \in \Set{1, \dots, N}\);
+			\item calcolare i coefficienti \(b_j = (f, \varphi_j)\) per \(j \in \Set{1, \dots, N}\);
 			\item risolvere numericamente il sistema lineare \(c^* G = b\).
 		\end{itemize}
 		Se, invece, l'insieme dei \(\varphi_j\) consta di elementi a due a due ortogonali, ovvero è una base ortogonale del suo sottospazio generato, si vede che la risoluzione delle equazioni \eqref{eq:eq-normali} è data dai \emph{coefficienti di Fourier}
 		\begin{equation}\label{eq:coeff-fourier}
-			c_k^* = \frac{(\varphi_k, f)}{(\varphi_k, \varphi_k)}
+			c_k^* = \frac{(f, \varphi_k)}{(\varphi_k, \varphi_k)}
 		\end{equation}
 		al variare di \(k \in \Set{1, \dots, N}\), il che necessita di soli \(2 N\) prodotti interni e \(N\) divisioni. Il procedimento è ancora meno dispendioso se i \(\varphi_j\) formano una base ortonormale del proprio sottospazio generato, in quanto non è necessario effettuare le divisioni.
 	\end{osservazione}
