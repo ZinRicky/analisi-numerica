@@ -15,9 +15,19 @@
 \usepackage{caption}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{tikz, pgfplots}
+\usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage[output-decimal-marker={,}, exponent-product={\cdot}]{siunitx}
 \usepackage[notrig]{physics}
+
+%% ZONA FONT
+%% COMMENTARE QUESTE RIGHE PER RISTABILIRE IL FONT STANDARD
+%% È FORTEMENTE CONSIGLIATO USARE 12pt ANZICHÉ 11pt
+%\usepackage{fontspec}
+%\usepackage{ebgaramond}
+%\usepackage[cmintegrals, cmbraces]{newtxmath}
+%\usepackage{ebgaramond-maths}
+%% FINE ZONA FONT
 
 \newcommand*{\numberset}{\mathbb}
 \newcommand*{\N}{\numberset{N}}
@@ -25,7 +35,6 @@
 \newcommand*{\Q}{\numberset{Q}}
 \newcommand*{\Z}{\numberset{Z}}
 \newcommand*{\C}{\numberset{C}}
-\newcommand*{\K}{\numberset{K}}
 \newcommand*{\T}{\numberset{T}}
 \newcommand*{\E}{\numberset{E}}
 \newcommand*{\cont}{\mathscr{C}}
@@ -37,9 +46,8 @@
 \newcommand*{\tra}[1]{\ensuremath{#1^\mathrm{T}}}
 \newcommand*{\her}[1]{\ensuremath{#1^\mathrm{H}}}
 \newcommand*{\gammanum}[1]{\gamma_{#1}^{\textup{\textsc{num}}}}
-%\newcommand*{\meg}[1]{\text{\textsc{#1}}}
 
-%\renewcommand{\vec}{\overline}
+%\renewcommand{\vec}{\mathbf}
 \renewcommand{\P}{\numberset{P}}
 
 \DeclareMathOperator{\sgn}{sgn}
@@ -53,12 +61,10 @@
 \newtheorem{proposizione}[teorema]{Proposizione}
 \newtheorem{lemma}[teorema]{Lemma}
 \newtheorem{corollario}[teorema]{Corollario}
-\newtheorem{algoritmo}[teorema]{Algoritmo}
 
 \theoremstyle{definition}
 \newtheorem{definizione}[teorema]{Definizione}
 \newtheorem{esempio}[teorema]{Esempio}
-\newtheorem{esercizio}[teorema]{Esercizio}
 
 \theoremstyle{remark}
 \newtheorem*{nota}{Nota}
@@ -71,8 +77,32 @@
 \captionsetup{tableposition=top,figureposition=bottom,font=small}
 
 \usetikzlibrary{positioning, decorations.markings, decorations.pathreplacing}
-
 \pgfplotsset{compat=1.17}
+\newcommand*{\drawsinlua}[1]{\directlua{tex.print(tostring(math.sin(#1)))}}
+
+%% Il comando standard per disegnare una parabola sembra rotto se il flesso è oltre il punto finale desiderato.
+%% Da Stack Exchange copio questo codice per creare una parabola dati tre punti.
+
+\makeatletter
+\def\pt@get#1#2{
+	\tikz@scan@one@point\pgfutil@firstofone#2\relax%
+	\csname pgf@x#1\endcsname=\pgf@x%
+	\csname pgf@y#1\endcsname=\pgf@y%
+}
+\tikzset{
+	parabola through/.style={
+		to path={{[x={(\pgf@xc,\pgf@yc)}, y=\parabola@y, shift=(\tikztostart)]
+				-- (0,0) .. controls (1/3,1/3) and (2/3,1/3) .. (1,0) \tikztonodes}--(\tikztotarget)}
+	},
+	parabola through/.prefix code={
+		\pt@get{a}{(\tikztostart)}\pt@get{b}{#1}\pt@get{c}{(\tikztotarget)}%
+		\advance\pgf@xb by-\pgf@xa\advance\pgf@yb by-\pgf@ya%
+		\advance\pgf@xc by-\pgf@xa\advance\pgf@yc by-\pgf@ya%
+		\pgfmathsetmacro\parabola@y{(\pgf@yc-\pgf@xc/\pgf@xb*\pgf@yb)%
+			/(\pgf@xb-\pgf@xc)*\pgf@xc}%
+	}
+}
+\makeatother
 
 \setmainlanguage{italian}
 
@@ -132,5 +162,7 @@
 	\input{capitoli/AN02.tex}
 	
 	\input{capitoli/AN03.tex}
+	
+	\input{capitoli/AN04.tex}
 	
 \end{document}

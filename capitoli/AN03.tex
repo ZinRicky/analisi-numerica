@@ -33,12 +33,12 @@
 		
 	\end{definizione}
 
-	\begin{esempio}[Funzioni peso classiche]
+	\begin{esempio}[Funzioni peso classiche]\label{eg:funzioni-peso}
 		Riportiamo alcuni esempi di funzioni peso comuni.
 			\begin{itemize}
 				\item Peso di Legendre: \(w (x) = 1\) per \(x \in [\, -1, 1\,]\).
 				\item Peso di Chebyshev: \(w (x) = 1 / \sqrt{1 - x^2}\) per \(x \in (\, -1, 1 \,)\).
-				\item Peso di Gegenbauer: \(w (x) = \qty(1 - x^2)^{\gamma - 1 / 2}\) per \(x \in (\, -1, 1 \,)\), con \(\gamma > (- 1 / 2)\).
+				\item Peso di Gegenbauer: \(w (x) = \qty(1 - x^2)^{\gamma - 1 / 2}\) per \(x \in (\, -1, 1 \,)\), con \(\gamma > - 1 / 2\).
 				\item Peso di Jacobi: \(w (x) = (1 - x)^\alpha (1 + x)^\beta\) per \(x \in (\, -1, 1 \,)\), con \(\alpha, \beta > - 1\).
 				\item Peso di Laguerre: \(w (x) = \ee^{-x}\) per \(x \in (\, 0, + \infty \,)\).
 				\item Peso di Hermite: \(w (x) = \ee^{- x^2}\) per \(x \in \R\).
@@ -105,7 +105,7 @@
 	\end{osservazione}
 	
 	\begin{teorema}[Christoffel]
-		Se una famiglia triangolare di polinomi \(\varphi_0, \dots, \varphi_n\) è ortogonale in \((\, a, b \,)\) rispetto a una funzione peso \(w\), allora il polinomio \(\varphi_n\) ha esattamente \(n\) zeri, i quali hanno tutti molteplicità \(1\) ed appartengono all'intervallo \((\, a, b \,)\).
+		Se una famiglia triangolare di polinomi \(\varphi_0, \dots,\) \(\varphi_n\) è ortogonale in \((\, a, b \,)\) rispetto a una funzione peso \(w\), allora il polinomio \(\varphi_n\) ha esattamente \(n\) zeri, i quali hanno tutti molteplicità \(1\) ed appartengono all'intervallo \((\, a, b \,)\).
 	\end{teorema}
 
 	\begin{proof}
