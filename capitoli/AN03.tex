@@ -98,7 +98,7 @@
 	\end{definizione}
 
 	\begin{osservazione}
-		Attraverso il procedimento di Gram-Schmidt, si può dimostrare che esiste una tale famiglia di polinomi e costruirla direttamente. Si può osservare, inoltre, che ogni polinomio di grado \(n\) si può scrivere univocamente come combinazione lineare di \(\varphi_0\, dots, \varphi_n\). In base a queste osservazioni, per ogni \(p_m = \sum_{j = 0}^m a_j x^j\) con \(m < n\) dalla bilinearità del prodotto scalare segue che
+		Attraverso il procedimento di Gram-Schmidt, si può dimostrare che esiste una tale famiglia di polinomi e costruirla direttamente. Si può osservare, inoltre, che ogni polinomio di grado \(n\) si può scrivere univocamente come combinazione lineare di \(\varphi_0, \dots, \varphi_n\). In base a queste osservazioni, per ogni \(p_m = \sum_{j = 0}^m a_j x^j\) con \(m < n\) dalla bilinearità del prodotto scalare segue che
 		\begin{equation}
 			\qty(\varphi_{m + 1}, p_m)_{2, w} = \qty(\varphi_{m + 1}, \sum_{j = 0}^m a_j x^j)_{\! 2, w} \hspace{-.7em} = \sum_{j = 0}^m a_j \qty(\varphi_{m + 1}, \varphi_j)_{2, w} = 0
 		\end{equation}
@@ -125,7 +125,7 @@
 		\begin{equation*}
 			\varphi_n (x) \, q(x) = a_n \qty[\prod_{k = 1}^m \qty(x - x_k)^{\alpha_k + \varmod_2 \alpha_k}] r (x)
 		\end{equation*}
-		il quale avrebbe segno costante e grado almeno \(n\), non coincidendo col polinomio. Dato che, però,
+		il quale avrebbe segno costante e grado almeno \(n\), non coincidendo col polinomio nullo. Dato che, però,
 		\begin{multline*}
 			0 = \qty(\varphi_n, q)_{2, w} = \int_a^b \varphi_n (x) q (x) w (x) \dd{x} \\
 			= \int_a^b a_n \qty[\prod_{k = 1}^m \qty(x - x_k)^{\alpha_k + \varmod_2 \alpha_k}] r (x) w (x) \dd{x} \ne 0
