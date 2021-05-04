@@ -372,7 +372,7 @@
 	Il problema di dover calcolare un integrale di una funzione \(f \colon (\, a, b \,) \to \R\) come nella \eqref{eq:integrale-con-peso} è di gran lunga piú generale rispetto all'integrazione di una funzione continua su un intervallo chiuso e limitato: l'integranda \(f w\), infatti, potrebbe non essere continua in \([\, a, b \,]\), come ad esempio accade usando la funzione peso di Chebyshev, discontinua in \(\pm 1\); l'intervallo, poi, potrebbe non essere nemmeno limitato, come accade quando si usa la funzione peso di Laguerre o quella di Hermite.
 	
 	\begin{teorema}\label{th:formula-gaussiana-esiste-unica}
-		Per ogni \(n \in \N^*\) esistono un'unica \(n\)-upla \(x_1, \dots, x_n\) di nodi e un'unica \(n\)-upla di pesi \(w_1, \dots, w_n\) tali che il grado di precisione della formula di quadratura che ha questi come nodi e come pesi abbia grado di precisione almeno \(2 n - 1\). Tali nodi sono gli zeri del polinomio ortogonale rispetto a \(w\) di grado \(n\) \(\varphi_n (x) = A_n (x - x_1) \cdots (x - x_n)\), mentre i pesi sono individuati per ogni \(i \in \Set{1, \dots, n}\) da
+		Data una funzione peso \(w \colon (\, a, b \,) \to \R\), per ogni \(n \in \N^*\) esistono un'unica \(n\)-upla \(x_1, \dots, x_n\) di nodi e un'unica \(n\)-upla di pesi \(w_1, \dots, w_n\) tali che la formula di quadratura per approssimare \(I_w (f)\) che ha questi come nodi e come pesi abbia grado di precisione almeno \(2 n - 1\). Tali nodi sono gli zeri del polinomio ortogonale rispetto a \(w\) di grado \(n\) \(\varphi_n (x) = A_n (x - x_1) \cdots (x - x_n)\), mentre i pesi sono individuati per ogni \(i \in \Set{1, \dots, n}\) da
 		\begin{equation}\label{eq:formule-gauss-pesi}
 			w_i = \int_a^b L_i (x) w (x) \dd{x} = \int_a^b L_i^2 (x) w (x) \dd{x}
 		\end{equation}
@@ -431,7 +431,7 @@
 		che è assurdo.
 	\end{osservazione}
 
-\section[Stima dell'errore]{Stima dell'errore delle formule di quadratura}
+\section[Stabilità delle formule]{Stabilità di una formula di quadratura}
 	
 	\begin{teorema}
 		Indichiamo con \(I_n (f) = \sum_{i = 1}^n w_{i, n} f (x_{i, n})\) la regola di Newton-Cotes a \(n\) nodi su \([\, a, b \,]\) e poniamo \(h = (b - a) / (n - 1)\). Se \(n\) è dispari e \(f \in \cont^{n + 1} ([\, a, b \,])\), allora esiste \(\eta \in (\, a, b \,)\) tale che
@@ -484,10 +484,8 @@
 		\mathcal{E}_n (f) = I (f) - I_n (f) = \frac{2^{2 n + 1} (n!)^4}{(2 n + 1) [(2 n)!]^3} f^{(2 n)} (\eta) \qquad \exists \eta \in (\, -1, 1 \,)
 	\end{equation*}
 	Nella Figura~\ref{fig:legendre-newton} è evidente che il fattore di \(\mathcal{E}_n (f)\) indipendente da \(f\) abbia una decrescita di gran lunga piú veloce rispetto all'errore commesso con le formule di Newton-Cotes chiuse.
-
-\section[Stabilità delle formule]{Stabilità di una formula di quadratura}
 	
-	\noindent Considerata una funzione peso \(w\) sull'intervallo generalizzato \((\, a, b \,)\), supponiamo di avere una formula di quadratura \(S_n\) tale che
+	Considerata una funzione peso \(w\) sull'intervallo generalizzato \((\, a, b \,)\), supponiamo di avere una formula di quadratura \(S_n\) tale che
 	\begin{equation*}
 		I_w (f) \approx S_n (f) = \sum_{j = 1}^n w_j f_j
 	\end{equation*}
@@ -604,7 +602,7 @@
 	\begin{esempio}
 		Si supponga di dover approssimare numericamente l'integrale
 		\begin{equation*}
-			\int_{-1}^1 \ee^x \sqrt{1 - x^2}
+			\int_{-1}^1 \ee^x \sqrt{1 - x^2} \dd{x}
 		\end{equation*}
 		con la formula di Gauss-Legendre e con la formula di Gauss-Jacobi avente come esponenti \(\alpha = 1 / 2\) e \(\beta = 0\). Nel primo caso, si sta considerando una funzione che non è derivabile in \(\pm 1\), mentre nel secondo caso la funzione da considerare non peso è non derivabile solo in \(-1\). Se, invece, si usa la formula di quadratura di Gauss-Jacobi con \(\alpha = \beta = 1/2\), la funzione integranda è analitica, e quindi l'errore è di gran lunga inferiore. La Figura~\ref{fig:legendre-jacobi} mostra a confronto questi tre approcci.
 		
