@@ -71,7 +71,7 @@
 		\end{equation}
 		è tale che\label{eq:proiez-ortog}
 		\begin{equation}
-			\norm{f - f^*}_2 = \min_{g \in \Braket{\varphi_1, \dots, \varphi_k}} \norm{f - g}_2
+			\norm{f - f^*}_2 = \min_{g \in \Braket{\varphi_1, \dots, \varphi_N}} \norm{f - g}_2
 		\end{equation}
 		Questa soluzione è tale che \(f^* - f\) è ortogonale a tutti i \(\varphi_j\), o equivalentemente si ha \((f, \varphi_j) = (f^*, \varphi_j)\) per ogni \(j \in \Set{1, \dots, N}\).
 	\end{teorema}
@@ -358,7 +358,7 @@
 	\begin{equation}\label{eq:coeff-fourier-approx}
 		\gammanum{k} = \sum_{j = 1}^{2 M + 1} \mathcal{X}_j \exp \qty(- \ii k \frac{2 \pi j}{2 M + 1})
 	\end{equation}
-	si vede che \(\gamma_k \approx \gammanum{k}\) per ogni \(k \in \Set{-M, \dots, M}\). Sotto opportune condizioni, si può ricorrere all'algoritmo della trasformata rapida di Fourier (\textsc{fft}) per calcolare i \(2 M + 1\) coefficienti \(\gammanum{-M}, \dots, \gammanum{M}\) in \(\mathcal{O} (M \log M)\) operazioni anziché in \(\mathcal{O} (M^2)\), come si riuscirebbe con altri algoritmi.
+	si vede che \(\gamma_k \approx \gammanum{k}\) per ogni \(k \in \Set{-M, \dots, M}\). Sotto opportune condizioni, si può ricorrere all'algoritmo della trasformata rapida di Fourier (\textsc{fft}) per calcolare i \(2 M + 1\) coefficienti \(\gammanum{-M}, \dots, \gammanum{M}\) in \(\order{M \log M}\) operazioni anziché in \(\order{M^2}\), come si riuscirebbe con altri algoritmi.
 	
 	\begin{teorema}[Polinomio trigonometrico interpolante]\label{th:polin-trig-interp}
 		Se una funzione \(f \colon [\, 0, 2 \pi \,] \to \R\) è continua e periodica, allora il polinomio trigonometrico

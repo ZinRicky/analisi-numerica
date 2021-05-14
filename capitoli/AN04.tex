@@ -314,7 +314,7 @@
 	\end{equation}
 	per un certo \(\xi \in (\, a, b \,)\). Il grado di precisione di questa formula è ancora \(1\), ma per \(N \ge 1\) si ha \(h_N \le h\), da cui segue che \(\abs{\mathcal{E}_2^{(c)} (f)} \le \abs{\mathcal{E}_2 (f)}\).
 	
-	Sotto ipotesi piú stringenti è possibile migliorare la stima dell'andamento dell'errore \(\mathcal{E}_2^{(c)} (f)\), che in base alla \eqref{eq:formula-trapezi-errore} è \(\mathcal{O} (1 / N^2)\).
+	Sotto ipotesi piú stringenti è possibile migliorare la stima dell'andamento dell'errore \(\mathcal{E}_2^{(c)} (f)\), che in base alla \eqref{eq:formula-trapezi-errore} è \(\order{1 / N^2}\).
 	
 	\begin{teorema}[Formula di Eulero-Maclaurin]
 		Se \(f \in \cont^{2 M + 2} ([\, a, b \,])\), allora esiste \(\xi \in (\, a, b \,)\) tale che
@@ -325,7 +325,7 @@
 		ove i \(B_k\) sono i numeri di Bernoulli.
 	\end{teorema}
 
-	Se ci poniamo nel caso particolare in cui \(f^{(2 k -1)} (a) = f^{(2 k - 1)} (b)\) per ogni \(k \in \Set{1, \dots, M}\), la sommatoria nella \eqref{eq:formula-eulero-maclaurin} si annulla e diviene evidente che \(\mathcal{E}_2^{(c)} (f)\) è in tal caso \(\mathcal{O} (1 / N^{2 M + 2})\). In casi ancor piú specifici, l'errore decresce esponenzialmente.
+	Se ci poniamo nel caso particolare in cui \(f^{(2 k -1)} (a) = f^{(2 k - 1)} (b)\) per ogni \(k \in \Set{1, \dots, M}\), la sommatoria nella \eqref{eq:formula-eulero-maclaurin} si annulla e diviene evidente che \(\mathcal{E}_2^{(c)} (f)\) è in tal caso \(\order{1 / N^{2 M + 2}}\). In casi ancor piú specifici, l'errore decresce esponenzialmente.
 	
 	\begin{teorema}
 		Se \(f \colon [\, 0, 2 \pi \,] \to \R\) è una funzione analitica e periodica di periodo \(2 \pi\) tale che esistano \(a, M > 0\) tali che \(\abs{f (z)} \le M\) per ogni \(z \in \C\) tale che \(\Im z > - a\), allora per ogni \(N \in \N^*\) \(f\) verifica
@@ -706,7 +706,7 @@
 	\begin{proof}
 		In base al Teorema~\ref{th:formula-gaussiana-esiste-unica}, i pesi \(w_1, \dots, w_n\) della formula \(S_n\) sono positivi e, per quanto visto nel Teorema~\ref{th:quadratura-pesi-pos-converge}, si può giungere alla tesi se la successione di formule converge per ogni monomio \(x^k\). Sempre per il Teorema~\ref{th:formula-gaussiana-esiste-unica}, ciò è verificato, perché \(S_n\) ha grado di precisione almeno \(2 n - 1\), per cui
 		\begin{equation*}
-			n \ge \left\lceil \frac{k + 1}{2} \right\rceil \implies \mathcal{E}_n (x^k) = 0 % Probabilmente c'è una soluzione piú pulita per mettere i delimitatori del soffitto, ma non ho voglia di cercare.
+			n \ge \left\lceil \frac{k + 1}{2} \right\rceil \implies \mathcal{E}_n (x^k) = 0 % Probabilmente c'è una soluzione piú pulita per mettere i delimitatori del soffitto.
 		\end{equation*}
 		e per il Teorema~\ref{th:polya-steklov} si può concludere.
 	\end{proof}

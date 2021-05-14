@@ -1,0 +1,26 @@
+\chapter{Metodi iterativi per sistemi lineari}
+
+	\noindent Dati una matrice \(A \in M_n (\C)\) e un vettore colonna \(b \in \C^n\), si vogliono trovare le soluzioni del sistema lineare \(A x = b\). D'ora in avanti supporremo che la soluzione \(x^*\) del sistema sia unica, ovvero che \(A\) sia non singolare.
+	
+	Questo problema si può risolvere mediante la fattorizzazione \textsc{lu} con \emph{pivoting}, che però ha costo computazionale pari a \(\order{n^3 / 3}\) moltiplicazioni; un tale costo è eccessivo se \(n\) è particolarmente elevato. La fattorizzazione \textsc{lu} decompone una matrice \(A\) invertibile secondo la regola \(P \! A = L U\), ove
+		\begin{itemize}
+			\item \(P\) è una matrice di permutazione;
+			\item \(L\) è una matrice triangolare inferiore e tale che \(L_{i, i} = 1\) per ogni \(i \in \Set{1, \dots, n}\);
+			\item \(U\) è una matrice triangolare superiore.
+		\end{itemize}
+	Osservando, poi, che
+	\begin{equation*}
+		A x = b \iff P \! A x = P b \iff L U x = P b
+	\end{equation*}
+	si ottiene la soluzione trovando la soluzione \(y^*\) del sistema \(L y = P b\) e poi determinando \(x^*\) tale che \(U x^* = y^*\).
+	
+	Un approccio alternativo è quello dei cosiddetti \emph{metodi iterativi}, coi quali si mira ad ottenere una successione di vettori \(x^{(k)}\) che converga alla soluzione \(x^*\) e tale che per \(\bar{k} \ll n\) si abbia \(x^{(\bar{k})} \approx x^*\). In generale, questi metodi non restituiscono la soluzione in modo esatto dopo un numero finito di operazioni, come invece accade per i metodi diretti: la soluzione proposta da tali metodi, infatti, è un limite -- che nella realtà sarà approssimato con poche iterazioni ciascuna di costo quadratico, di solito un prodotto matrice-vettore. Il costo totale di questi metodi sarà \(\order{\bar{k} n^2}\), che si vorrà minore del costo cubico della fattorizzazione \textsc{lu}.
+	
+\section{Metodi iterativi stazionari}
+	
+	\noindent Supponiamo che la matrice non singolare \(A \in M_n (\C)\) sia tale che \(A = M - N\), con \(M\) non singolare. In base a ciò, si vede che
+	\begin{multline*}
+		A x = b \iff M x - N x = b \iff M x = N x + b \\
+		\iff x = M^{-1} N x + M^{-1} b
+	\end{multline*}
+	ovvero che la risoluzione del sistema lineare è equivalente alla risoluzione di un'equazione di punto fisso \(x = \varphi (x)\), con \(\varphi (x) = M^{-1} N x + M^{-1} b\).

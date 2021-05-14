@@ -205,7 +205,7 @@
 	\begin{teorema}\label{th:errore-approx-analitica}
 		Se una funzione \(f \colon [\, a, b \,] \to \R\) è analitica in un aperto \(\varOmega \subseteq \C\) che contenga \([\, a, b \,]\), allora esiste \(\vartheta \in (\, 0, 1 \,)\) tale che
 		\begin{equation}\label{eq:errore-approx-analitica}
-			E_n (f) = \mathcal{O} \qty(\vartheta^n)
+			E_n (f) = \order{\vartheta^n}
 		\end{equation}
 	\end{teorema}
 
@@ -221,7 +221,7 @@
 	\begin{osservazione}
 		Per quanto visto, la funzione di Runge \(f (x) \coloneqq \frac{1}{1 + x^2}\) è analitica in un aperto di \(\C\) che contenga \([\, -5, 5 \,]\). Una verifica sperimentale coi dati nella Tabella~\ref{tab:remez-errore} mostra che \(\vartheta \approx \num{0.814}\). Poiché, invece, la funzione \(\sin z\) è intera, l'errore di approssimazione con l'algoritmo di Remez scende alla precisione di macchina già per \(n\) non troppo alti.
 		
-		Per quanto riguarda la funzione \(f (x) \coloneqq \abs{x - 4}\), che è lipschitziana, dal Corollario~\ref{cor:jackson-lip-hold} segue che esiste \(M\) tale che \(E_n (f) = 10 M / n = \mathcal{O} (1 / n)\); con una verifica sperimentale si vede che \(E_n (f) \approx \num{0.85} / n\), ovvero che la convergenza del polinomio di miglior approssimazione è molto lenta.
+		Per quanto riguarda la funzione \(f (x) \coloneqq \abs{x - 4}\), che è lipschitziana, dal Corollario~\ref{cor:jackson-lip-hold} segue che esiste \(M\) tale che \(E_n (f) = 10 M / n = \order{1 / n}\); con una verifica sperimentale si vede che \(E_n (f) \approx \num{0.85} / n\), ovvero che la convergenza del polinomio di miglior approssimazione è molto lenta.
 	\end{osservazione}
 
 \section{Polinomi di Chebyshev}
@@ -332,17 +332,17 @@
 		\end{equation*}
 		Se invece si usano i punti di Chebyshev, di forma \(x_k = \cos \qty(\frac{2 k - 1}{2 (n + 1)} \pi)\) con \(k \in \Set{1, \dots, n + 1}\), si trova l'andamento asintotico
 		\begin{equation*}
-			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \mathcal{O} \qty(\frac{1}{(n + 1)^2})
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \order{\frac{1}{(n + 1)^2}}
 		\end{equation*}
 		ove \(\gamma \approx \num{0.5772156649}\) è la costante di Eulero-Mascheroni.
 		
 		Se si usano i punti di Chebyshev estesi, di forma \(x_k = \frac{\cos \qty(\frac{2 k - 1}{2 (n + 1)} \pi)}{\cos \qty(\frac{1}{2 (n + 1)} \pi)}\) con \(k \in \Set{1, \dots, n + 1}\), si trova l'andamento asintotico
 		\begin{equation*}
-			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi}) - \frac{2}{3}] + \mathcal{O} \qty(\frac{1}{\log(n + 1)})
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi}) - \frac{2}{3}] + \order{\frac{1}{\log(n + 1)}}
 		\end{equation*}
 		Si può dimostrare, poi, che il minimo andamento asintotico per la costante di Lebesgue deve valere
 		\begin{equation*}
-			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \mathcal{O} \qty(\frac{\log \log (n + 1)}{\log (n + 1)})
+			\varLambda_n = \frac{2}{\pi} \qty[\log (n + 1) + \gamma + \log \qty(\frac{8}{\pi})] + \order{\frac{\log \log (n + 1)}{\log (n + 1)}}
 		\end{equation*}
 	\end{esempio}
 
