@@ -555,7 +555,7 @@ F = - (triu(A) - D);
 					\nextgroupplot[xlabel = \(x\), ylabel = \(\mu_\textup{g} (x)\), xmode = log, domain=1:100000]
 					\addplot+[only marks] {(x - 1) / (x + 1)};
 					\nextgroupplot[xlabel = \(\kappa_2 (A)\), ylabel = \(k (\kappa_2 (A))\), domain=1:100000, ymode = log]
-					\addplot+[only marks, mark options = {color = red, fill = black!20!red}, mark = square*] {ceil(ln(10^(-6)) / ln((x - 1) / (x + 1)))};
+					\addplot+[only marks, mark options = {color = red, fill = black!20!red}, mark = square*] table {risorse/kappakappa.dat};
 				\end{groupplot}
 			\end{tikzpicture}
 			\caption{Grafici delle funzioni \(\mu_\textup{g} (x)\) e \(k (\kappa_2 (A))\).}\label{fig:condiz-grad-classico}
@@ -659,7 +659,7 @@ F = - (triu(A) - D);
 			
 			\begin{tikzpicture}
 				\begin{axis}[xlabel = \(\kappa_2 (A)\), ylabel = \(k (\kappa_2 (A))\), only marks, domain = 1:100000, ymode = log, legend entries = {{Gradiente classico}, {Gradiente coniugato}}, legend pos = outer north east]
-					\addplot {ceil(ln(10^(-6)) / ln((x - 1) / (x + 1)))};
+					\addplot table {risorse/kappakappa.dat};
 					\addplot {ceil(ln(10^(-6) / 2) / ln((sqrt(x) - 1) / (sqrt(x) + 1)))};
 				\end{axis}
 			\end{tikzpicture}
