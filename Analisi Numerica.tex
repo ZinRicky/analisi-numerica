@@ -2,6 +2,7 @@
 
 \documentclass[11pt]{report}
 
+%% PACCHETTI
 \usepackage[T1]{fontenc}
 \usepackage{polyglossia}
 \usepackage{amsmath}
@@ -19,19 +20,23 @@
 \usepackage{pgfplots}
 \usepackage[output-decimal-marker={,}, exponent-product={\cdot}]{siunitx}
 \usepackage{physics}
+\usepackage{matlab-prettifier}
 \usepackage{hyperref}
 
+%% DISATTIVA I RIQUADRI DI HYPERREF
 \hypersetup{hidelinks}
 
-%% ZONA FONT
+%% ZONA FONT ALTERNATIVO
 %% COMMENTARE QUESTE RIGHE PER RISTABILIRE IL FONT STANDARD
 %% È FORTEMENTE CONSIGLIATO USARE 12pt ANZICHÉ 11pt
+%% CONTROLLARE GLI EVENTUALI SCONFINAMENTI OLTRE IL MARGINE DEL FOGLIO
 %\usepackage{fontspec}
 %\usepackage{ebgaramond}
 %\usepackage[cmintegrals, cmbraces]{newtxmath}
 %\usepackage{ebgaramond-maths}
 %% FINE ZONA FONT
 
+%% SIMBOLI MATEMATICI FREQUENTI
 \newcommand*{\numberset}{\mathbb}
 \newcommand*{\N}{\numberset{N}}
 \newcommand*{\R}{\numberset{R}}
@@ -44,12 +49,14 @@
 \newcommand*{\Parti}{\mathcal{P}}
 \newcommand*{\uno}{\mathbf{1}}
 \newcommand*{\zero}{\mathbf{0}}
-\newcommand*{\ee}{\mathrm{e}}
+\newcommand*{\ee}{\mathrm{e}\mkern1mu}
 \newcommand*{\ii}{\mathrm{i}\mkern1mu}
-\newcommand*{\tra}[1]{\ensuremath{#1^\mathrm{T}}}
-\newcommand*{\her}[1]{\ensuremath{#1^\mathrm{H}}}
-\newcommand*{\gammanum}[1]{\gamma_{#1}^{\textup{\textsc{num}}}}
+\newcommand{\tra}[1]{\ensuremath{#1^\mathrm{T}}\relax}
+\newcommand{\her}[1]{\ensuremath{#1^\mathrm{H}}\relax}
+\newcommand{\gammanum}[1]{\gamma_{#1}^{\textup{\textsc{num}}}}
+\newcommand*{\krylov}{\mathcal{K}}
 
+\renewcommand{\vec}{\mathbf}
 \renewcommand{\P}{\numberset{P}}
 
 \DeclareMathOperator{\sgn}{sgn}
@@ -57,7 +64,9 @@
 \DeclareMathOperator{\Jacob}{J}
 \DeclareMathOperator{\Hess}{H}
 \DeclareMathOperator{\varmod}{mod}
+\DeclareMathOperator{\raggio}{\varrho}
 
+%% TEOREMI, LEMMI ET CETERA
 \theoremstyle{plain}
 \newtheorem{teorema}{Teorema}[chapter]
 \newtheorem{proposizione}[teorema]{Proposizione}
@@ -72,19 +81,21 @@
 \newtheorem*{nota}{Nota}
 \newtheorem{osservazione}[teorema]{Osservazione}
 
+%% AGGIUSTAMENTI A FIGURE, TABELLE ED EQUAZIONI
 \numberwithin{equation}{chapter}
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
 
 \captionsetup{tableposition=top,figureposition=bottom,font=small}
 
+%% CONFIGURAZIONI TIKZ-PGFPLOTS
 \usetikzlibrary{positioning, decorations.markings, decorations.pathreplacing}
+\usetikzlibrary{pgfplots.groupplots}
 \pgfplotsset{compat=1.17}
 \newcommand*{\drawsinlua}[1]{\directlua{tex.print(tostring(math.sin(#1)))}}
 
-%% Il comando standard per disegnare una parabola sembra rotto se il flesso è oltre il punto finale desiderato.
+%% Il comando standard per disegnare una parabola sembra rotto se il vertice è oltre il punto finale desiderato.
 %% Da Stack Exchange copio questo codice per creare una parabola dati tre punti.
-
 \makeatletter
 \def\pt@get#1#2{
 	\tikz@scan@one@point\pgfutil@firstofone#2\relax%
@@ -106,8 +117,17 @@
 }
 \makeatother
 
+%% IMPOSTAZIONI DI LINGUA
 \setmainlanguage{italian}
+\setotherlanguage{english}
 
+\newcommand{\inglese}[1]{\textenglish{\emph{#1}}}
+
+\addto\captionsitalian{%
+	\renewcommand{\lstlistingname}{Listato}
+	\renewcommand{\lstlistlistingname}{Elenco dei listati}}
+
+%% INIZIO DOCUMENTO
 \begin{document}
 	\begin{titlepage}
 		\begin{center}
@@ -168,5 +188,7 @@
 	\input{capitoli/AN04.tex}
 	
 	\input{capitoli/AN05.tex}
+	
+	\input{capitoli/AN06.tex}
 	
 \end{document}
