@@ -7,7 +7,7 @@ Raccolta e riscrittura degli appunti di Analisi Numerica, Anno Accademico 2020/2
 Da riga di comando basta digitare (nella cartella in cui sono salvati i file)
 
 ```
-lualatex "Analisi Numerica.tex"
+lualatex Analisi_Numerica.tex
 ```
 
 Con programmi come TeXstudio è possibile premere semplicemente il tasto `Compila` e dovrebbe fare tutto da solo.
