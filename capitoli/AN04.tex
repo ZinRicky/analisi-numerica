@@ -610,14 +610,14 @@
 			\centering
 			
 			\begin{tikzpicture}
-				\begin{axis}[scale=1.1, ymode=log, only marks, mark size = 0.8pt, legend entries = {G.-Legendre, {G.-Jacobi \(\alpha = \frac{1}{2}\), \(\beta = 0\)}, {G.-Jacobi \(\alpha = \frac{1}{2}\), \(\beta = \frac{1}{2}\)}}, legend pos = north east]
+				\begin{axis}[scale=1.1, ymode=log, only marks, legend entries = {G.-Legendre, {G.-Jacobi \(\alpha = \frac{1}{2}\), \(\beta = 0\)}, {G.-Jacobi \(\alpha = \frac{1}{2}\), \(\beta = \frac{1}{2}\)}}, legend pos = north east]
 					\addplot table {risorse/gaussleg.dat};
 					\addplot table {risorse/gaussjac.dat};
 					\addplot table {risorse/gaussjac2.dat};
 				\end{axis}
 			\end{tikzpicture}
 			
-			\caption{Confronto tra gli errori relativi commessi dalle formule di Gauss-Legendre e di Gauss-Jacobi per calcolare \(\int_{-1}^1 \ee^x \sqrt{1 - x^2} \dd{x}\). La stabilizzazione dell'errore relativo della terza formula è dovuto ad approssimazioni in aritmetica di macchina.}\label{fig:legendre-jacobi}
+			\caption{Confronto tra gli errori relativi commessi dalle formule di Gauss-Legendre e di Gauss-Jacobi per calcolare \(\int_{-1}^1 \ee^x \sqrt{1 - x^2} \dd{x}\). L'oscillazione dell'errore relativo della terza formula è dovuto ad approssimazioni in aritmetica di macchina.}\label{fig:legendre-jacobi}
 		\end{figure}
 	\end{esempio}
 
